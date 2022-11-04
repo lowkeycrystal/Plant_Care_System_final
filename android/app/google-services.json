@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "627115676913",
+    "project_id": "plantcareapp-56b51",
+    "storage_bucket": "plantcareapp-56b51.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:627115676913:android:57b02369d3665a565a0550",
+        "android_client_info": {
+          "package_name": "com.example.plant_care_system"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "627115676913-r9mvlu2oj6ik8cg74s5pagnk64jpvjcj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIcB9jP400k0za9Oyrz2hPJxc9szIdb-k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "627115676913-r9mvlu2oj6ik8cg74s5pagnk64jpvjcj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:627115676913:android:dd2f603bfdd788bc5a0550",
+        "android_client_info": {
+          "package_name": "com.example.qr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "627115676913-r9mvlu2oj6ik8cg74s5pagnk64jpvjcj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIcB9jP400k0za9Oyrz2hPJxc9szIdb-k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "627115676913-r9mvlu2oj6ik8cg74s5pagnk64jpvjcj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
