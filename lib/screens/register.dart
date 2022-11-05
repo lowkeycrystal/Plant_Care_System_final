@@ -600,11 +600,17 @@ class MyCustomFormState extends State<MyCustomForm> {
                           await Future.delayed(const Duration(seconds: 2));
 
                           hasInternet
-                              ? (Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => Downloadqr(
-                                        pnforward: plantName,
-                                        pidforward: plantId,
-                                      ))))
+                              ? (Navigator.of(context)
+                                  .push(
+                                    MaterialPageRoute(
+                                        builder: (context) => Downloadqr(
+                                              pnforward: plantName,
+                                              pidforward: plantId,
+                                            )),
+                                  )
+                                  .then((_) => setState(() {
+                                        _isLoading = false;
+                                      })))
                               : showSimpleNotification(
                                   const Text(
                                     "No Internet",

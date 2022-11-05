@@ -59,15 +59,15 @@ class _PlantInfoState extends State<PlantInfo> {
 
   @override
   Widget build(BuildContext context) {
-    return FlutterCloseAppPage(
-        onCloseFailed: () {
-          // Condition does not match: the first press or the second press interval is more than 2 seconds, display a prompt message
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text('Press again to exit'),
-          ));
-        },
-        child: WillPopScope(
-          onWillPop: () => Future.value(false),
+    return WillPopScope(
+        onWillPop: () => Future.value(false),
+        child: FlutterCloseAppPage(
+          onCloseFailed: () {
+            // Condition does not match: the first press or the second press interval is more than 2 seconds, display a prompt message
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text('Press again to exit'),
+            ));
+          },
           child: Scaffold(
               backgroundColor: const Color.fromARGB(255, 229, 242, 201),
               appBar: AppBar(
@@ -206,7 +206,7 @@ class _PlantInfoState extends State<PlantInfo> {
                                                 MainAxisAlignment.center,
                                             children: [
                                               Text(
-                                                'Current Height: ${data.docs[index]['Pot_Hieght']} inches',
+                                                'Current Height: ${data.docs[index]['Pot_Height']} inches',
                                                 style: const TextStyle(
                                                   fontFamily: 'AvenirLight',
                                                 ),
