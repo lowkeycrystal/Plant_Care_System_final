@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'main.dart';
+import '../main.dart';
 import 'dart:async';
 import 'package:line_icons/line_icons.dart';
 import 'package:flutter_close_app/flutter_close_app.dart';
@@ -59,16 +59,15 @@ class _PlantInfoState extends State<PlantInfo> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Plant Profile',
-        debugShowCheckedModeBanner: false,
-        home: FlutterCloseAppPage(
-          onCloseFailed: () {
-            // Condition does not match: the first press or the second press interval is more than 2 seconds, display a prompt message
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text('Press again to exit'),
-            ));
-          },
+    return FlutterCloseAppPage(
+        onCloseFailed: () {
+          // Condition does not match: the first press or the second press interval is more than 2 seconds, display a prompt message
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Press again to exit'),
+          ));
+        },
+        child: WillPopScope(
+          onWillPop: () => Future.value(false),
           child: Scaffold(
               backgroundColor: const Color.fromARGB(255, 229, 242, 201),
               appBar: AppBar(
@@ -207,7 +206,7 @@ class _PlantInfoState extends State<PlantInfo> {
                                                 MainAxisAlignment.center,
                                             children: [
                                               Text(
-                                                'Current Height: ${data.docs[index]['Plant_Height']} inches',
+                                                'Current Height: ${data.docs[index]['Pot_Hieght']} inches',
                                                 style: const TextStyle(
                                                   fontFamily: 'AvenirLight',
                                                 ),
@@ -216,7 +215,7 @@ class _PlantInfoState extends State<PlantInfo> {
                                                 width: 15,
                                               ),
                                               Text(
-                                                'Current Age: ${data.docs[index]['Plant_Age']} months',
+                                                'Current Age: ${data.docs[index]['Pot_TopDiameter']} months',
                                                 style: const TextStyle(
                                                   fontFamily: 'AvenirLight',
                                                 ),
@@ -226,7 +225,7 @@ class _PlantInfoState extends State<PlantInfo> {
                                           height: 15,
                                         ),
                                         Text(
-                                          'Current Number of Leaves: ${data.docs[index]['Num_of_Leaves']} leaves',
+                                          'Current Number of Leaves: ${data.docs[index]['Pot_BaseDiameter']} leaves',
                                           style: const TextStyle(
                                             fontFamily: 'AvenirLight',
                                           ),
