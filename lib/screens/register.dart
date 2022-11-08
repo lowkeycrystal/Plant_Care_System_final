@@ -1,15 +1,9 @@
-// Copyright 2018 The Flutter team. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_close_app/flutter_close_app.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:overlay_support/overlay_support.dart';
 import 'package:plant_care_system/screens/success.dart';
 import 'package:plant_care_system/shared/constant.dart';
-import '../main.dart';
 import 'package:uuid/uuid.dart';
 
 void main() {
@@ -20,62 +14,60 @@ class Register extends StatelessWidget {
   const Register({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => OverlaySupport.global(
-      child: FlutterCloseAppPage(
-          onCloseFailed: () {
-            // Condition does not match: the first press or the second press interval is more than 2 seconds, display a prompt message
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text('Press again to exit'),
-            ));
-          },
-          child: WillPopScope(
-            onWillPop: () => Future.value(false),
-            child: Scaffold(
-              backgroundColor: const Color.fromARGB(255, 229, 242, 201),
-              appBar: AppBar(
-                iconTheme: const IconThemeData(
-                    color: Color.fromARGB(255, 199, 217, 137)),
-                actions: <Widget>[
-                  IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () => showDialog<String>(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        title: const Text('Are sure to close page?'),
-                        content: const Text(
-                            'You will lose any data you input once you close this page.'),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () => Navigator.pop(context),
-                            child: const Text('Cancel'),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const MyApp()),
-                              );
-                            },
-                            child: const Text('Close'),
-                          ),
-                        ],
-                      ),
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: () => Future.value(false),
+      child: Scaffold(
+        backgroundColor: const Color.fromARGB(255, 229, 242, 201),
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          iconTheme:
+              const IconThemeData(color: Color.fromARGB(255, 199, 217, 137)),
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.close),
+              onPressed: () => showDialog<String>(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Are sure to close page?'),
+                  content: const Text(
+                      'You will lose any data you input once you close this page.'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text('Cancel'),
                     ),
-                  )
-                ],
-                backgroundColor: Colors.transparent,
-                bottomOpacity: 0.0,
-                title: const Text('Register New Plant',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 18, 64, 38),
-                      fontWeight: FontWeight.bold,
-                    )),
-                elevation: 0,
+                    TextButton(
+                      onPressed: () {
+                        // Navigator.pop(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //       builder: (context) => const MyApp()),
+                        // );
+
+                        Navigator.of(context)
+                            .popUntil((route) => route.isFirst);
+                      },
+                      child: const Text('Close'),
+                    ),
+                  ],
+                ),
               ),
-              body: const MyCustomForm(),
-            ),
-          )));
+            )
+          ],
+          backgroundColor: Colors.transparent,
+          bottomOpacity: 0.0,
+          title: const Text('Register New Plant',
+              style: TextStyle(
+                color: Color.fromARGB(255, 18, 64, 38),
+                fontWeight: FontWeight.bold,
+              )),
+          elevation: 0,
+        ),
+        body: const MyCustomForm(),
+      ),
+    );
+  }
 }
 
 // Create a Form widget.
@@ -175,6 +167,11 @@ class MyCustomFormState extends State<MyCustomForm> {
   String pidforward = '';
 
 // This will set the text value
+  final TextEditingController topdia = TextEditingController();
+  final TextEditingController basedia = TextEditingController();
+  final TextEditingController length = TextEditingController();
+  final TextEditingController width = TextEditingController();
+  final TextEditingController height = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -189,8 +186,35 @@ class MyCustomFormState extends State<MyCustomForm> {
             children: <Widget>[
 //Plant Name
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                padding: const EdgeInsets.fromLTRB(32, 10, 32, 0),
+                child: Row(children: [
+                  Expanded(
+                    child: Container(
+                        margin: const EdgeInsets.only(left: 0.0, right: 10.0),
+                        child: const Divider(
+                          color: Color.fromARGB(221, 83, 83, 83),
+                          height: 20,
+                        )),
+                  ),
+                  const Text(
+                    "Plant Details",
+                    style: TextStyle(
+                        color: Color.fromARGB(221, 83, 83, 83),
+                        fontSize: 15,
+                        fontFamily: 'AvenirLight'),
+                  ),
+                  Expanded(
+                    child: Container(
+                        margin: const EdgeInsets.only(left: 10.0, right: 0.0),
+                        child: const Divider(
+                          color: Color.fromARGB(221, 83, 83, 83),
+                          height: 20,
+                        )),
+                  ),
+                ]),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(32, 15, 32, 10),
                 child: TextFormField(
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -212,8 +236,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                padding: const EdgeInsets.fromLTRB(32, 0, 32, 10),
                 child: Theme(
                   data: Theme.of(context).copyWith(
                     canvasColor: const Color.fromARGB(255, 199, 217, 137),
@@ -260,8 +283,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                padding: const EdgeInsets.fromLTRB(32, 0, 32, 10),
                 child: Theme(
                   data: Theme.of(context).copyWith(
                     canvasColor: const Color.fromARGB(255, 199, 217, 137),
@@ -294,8 +316,35 @@ class MyCustomFormState extends State<MyCustomForm> {
               ),
               //POTTTTTTTTTTTTTTTTTT
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                padding: const EdgeInsets.fromLTRB(32, 10, 32, 15),
+                child: Row(children: [
+                  Expanded(
+                    child: Container(
+                        margin: const EdgeInsets.only(left: 0.0, right: 10.0),
+                        child: const Divider(
+                          color: Color.fromARGB(221, 83, 83, 83),
+                          height: 20,
+                        )),
+                  ),
+                  const Text(
+                    "Pot Details (cm)",
+                    style: TextStyle(
+                        color: Color.fromARGB(221, 83, 83, 83),
+                        fontSize: 15,
+                        fontFamily: 'AvenirLight'),
+                  ),
+                  Expanded(
+                    child: Container(
+                        margin: const EdgeInsets.only(left: 10.0, right: 0.0),
+                        child: const Divider(
+                          color: Color.fromARGB(221, 83, 83, 83),
+                          height: 20,
+                        )),
+                  ),
+                ]),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(32, 0, 32, 10),
                 child: Theme(
                   data: Theme.of(context).copyWith(
                     canvasColor: const Color.fromARGB(255, 199, 217, 137),
@@ -319,37 +368,26 @@ class MyCustomFormState extends State<MyCustomForm> {
                       );
                     }).toList(),
                     onChanged: (pot) {
-                      // if (pot == 'Box/Rectangle') {
-                      //   potHeight = 0;
-                      //   potBaseDiameter = 0;
-                      //   potTopDiameter = 0;
-                      // } else if (pot == 'Conical') {
-                      //   potHeight = 0;
-                      //   potBaseDiameter = 0;
-                      //   potTopDiameter = 0;
-                      // } else if (pot == 'Round') {
-                      //   potHeight = 0;
-                      //   potBaseDiameter = 0;
-                      //   potTopDiameter = 0;
-                      // } else {
-                      //   potHeight = 0;
-                      //   potBaseDiameter = 0;
-                      //   potTopDiameter = 0;
-                      // }
                       setState(() {
                         _selectedPotType = pot;
                       });
+                      topdia.clear();
+                      basedia.clear();
+                      length.clear();
+                      width.clear();
+                      height.clear();
                       potType = pot!;
                     },
                   ),
                 ),
               ),
-//row 1
+
               Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(32, 8, 8, 8),
+                    padding: const EdgeInsets.fromLTRB(32, 0, 8, 10),
                     child: TextFormField(
+                      controller: topdia,
                       enabled: _selectedPotType == "Round" ||
                               _selectedPotType == "Conical"
                           ? true
@@ -368,7 +406,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                         return null;
                       },
                       decoration: textInputDecoration.copyWith(
-                        labelText: 'Pot (Top Diameter)',
+                        labelText: 'Top Diameter',
                         hintText: 'Enter top diameter of the pot',
                       ),
                       style: const TextStyle(
@@ -376,15 +414,24 @@ class MyCustomFormState extends State<MyCustomForm> {
                           fontSize: 17,
                           fontFamily: 'AvenirLight'),
                       onChanged: (value) {
-                        potTopDiameter = int.parse(value);
+                        if (_selectedPotType == "Round" ||
+                            _selectedPotType == "Conical") {
+                          potTopDiameter = int.parse(value);
+                        } else {
+                          setState(() {
+                            potTopDiameter = 0;
+                          });
+                          potTopDiameter = 0;
+                        }
                       },
                     ),
                   ),
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
+                    padding: const EdgeInsets.fromLTRB(8, 0, 8, 10),
                     child: TextFormField(
+                      controller: basedia,
                       enabled: _selectedPotType == "Conical" ? true : false,
                       keyboardType: TextInputType.number,
                       inputFormatters: <TextInputFormatter>[
@@ -398,7 +445,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                         return null;
                       },
                       decoration: textInputDecoration.copyWith(
-                        labelText: 'Pot (Base Diameter)',
+                        labelText: 'Base Diameter',
                         hintText: 'Enter bottom diameter of the pot',
                       ),
                       style: const TextStyle(
@@ -406,15 +453,24 @@ class MyCustomFormState extends State<MyCustomForm> {
                           fontSize: 17,
                           fontFamily: 'AvenirLight'),
                       onChanged: (value) {
-                        potBaseDiameter = int.parse(value);
+                        if (_selectedPotType == "Conical") {
+                          potBaseDiameter = int.parse(value);
+                        } else {
+                          setState(() {
+                            potBaseDiameter = 0;
+                            value = '';
+                          });
+                          potBaseDiameter = 0;
+                        }
                       },
                     ),
                   ),
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 8, 32, 8),
+                    padding: const EdgeInsets.fromLTRB(8, 0, 32, 10),
                     child: TextFormField(
+                      controller: height,
                       enabled: _selectedPotType == "Round" ||
                               _selectedPotType == "Conical" ||
                               _selectedPotType == "Box/Rectangle"
@@ -435,26 +491,36 @@ class MyCustomFormState extends State<MyCustomForm> {
                         return null;
                       },
                       decoration: textInputDecoration.copyWith(
-                        labelText: 'Pot Height',
-                        hintText: 'Enter pot height',
+                        labelText: 'Height',
+                        hintText: 'unit: cm',
                       ),
                       style: const TextStyle(
                           color: Colors.black87,
                           fontSize: 17,
                           fontFamily: 'AvenirLight'),
                       onChanged: (value) {
-                        potHeight = int.parse(value);
+                        if (_selectedPotType == "Round" ||
+                            _selectedPotType == "Conical" ||
+                            _selectedPotType == "Box/Rectangle") {
+                          potHeight = int.parse(value);
+                        } else {
+                          setState(() {
+                            potHeight = 0;
+                          });
+                          potHeight = 0;
+                        }
                       },
                     ),
                   ),
                 ),
               ]),
-              //ROW 2
+
               Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(32, 8, 8, 8),
+                    padding: const EdgeInsets.fromLTRB(32, 0, 8, 10),
                     child: TextFormField(
+                      controller: length,
                       enabled:
                           _selectedPotType == "Box/Rectangle" ? true : false,
                       keyboardType: TextInputType.number,
@@ -471,22 +537,30 @@ class MyCustomFormState extends State<MyCustomForm> {
                       },
                       decoration: textInputDecoration.copyWith(
                         labelText: 'Length',
-                        hintText: 'Enter pot length',
+                        hintText: 'unit: cm',
                       ),
                       style: const TextStyle(
                           color: Colors.black87,
                           fontSize: 17,
                           fontFamily: 'AvenirLight'),
                       onChanged: (value) {
-                        potLength = int.parse(value);
+                        if (_selectedPotType == "Box/Rectangle") {
+                          potLength = int.parse(value);
+                        } else {
+                          setState(() {
+                            potLength = 0;
+                          });
+                          potLength = 0;
+                        }
                       },
                     ),
                   ),
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 8, 32, 8),
+                    padding: const EdgeInsets.fromLTRB(8, 0, 32, 10),
                     child: TextFormField(
+                      controller: width,
                       enabled:
                           _selectedPotType == "Box/Rectangle" ? true : false,
                       keyboardType: TextInputType.number,
@@ -502,23 +576,58 @@ class MyCustomFormState extends State<MyCustomForm> {
                         return null;
                       },
                       decoration: textInputDecoration.copyWith(
-                        labelText: 'Pot Width',
-                        hintText: 'Enter pot width',
+                        labelText: 'Width',
+                        hintText: 'unit: cm',
                       ),
                       style: const TextStyle(
                           color: Colors.black87,
                           fontSize: 17,
                           fontFamily: 'AvenirLight'),
                       onChanged: (value) {
-                        potWidth = int.parse(value);
+                        if (_selectedPotType == "Box/Rectangle") {
+                          potWidth = int.parse(value);
+                        } else {
+                          setState(() {
+                            potWidth = 0;
+                          });
+                          potWidth = 0;
+                        }
                       },
                     ),
                   ),
                 ),
               ]),
               Padding(
+                padding: const EdgeInsets.fromLTRB(32, 10, 32, 15),
+                child: Row(children: [
+                  Expanded(
+                    child: Container(
+                        margin: const EdgeInsets.only(left: 0.0, right: 10.0),
+                        child: const Divider(
+                          color: Color.fromARGB(221, 83, 83, 83),
+                          height: 20,
+                        )),
+                  ),
+                  const Text(
+                    "Others",
+                    style: TextStyle(
+                        color: Color.fromARGB(221, 83, 83, 83),
+                        fontSize: 15,
+                        fontFamily: 'AvenirLight'),
+                  ),
+                  Expanded(
+                    child: Container(
+                        margin: const EdgeInsets.only(left: 10.0, right: 0.0),
+                        child: const Divider(
+                          color: Color.fromARGB(221, 83, 83, 83),
+                          height: 20,
+                        )),
+                  ),
+                ]),
+              ),
+              Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                    const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
                 child: TextFormField(
                   maxLines: 4,
                   decoration: textInputDecoration.copyWith(
@@ -599,6 +708,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                               () => hasInternet ? _isLoading = true : false);
                           await Future.delayed(const Duration(seconds: 2));
 
+                          hasInternet ? _formKey.currentState?.reset() : null;
                           hasInternet
                               ? (Navigator.of(context)
                                   .push(
@@ -609,15 +719,32 @@ class MyCustomFormState extends State<MyCustomForm> {
                                             )),
                                   )
                                   .then((_) => setState(() {
+                                        hasInternet = false;
+                                        topdia.clear();
+                                        basedia.clear();
+                                        length.clear();
+                                        width.clear();
+                                        height.clear();
+                                        plantName = '';
+                                        plantVariety = '';
+                                        plantSpecie = '';
+                                        potHeight = 0;
+                                        potLength = 0;
+                                        potWidth = 0;
+                                        potTopDiameter = 0;
+                                        potBaseDiameter = 0;
+                                        _selectedPotType = null;
+                                        _selectedVarieties = null;
+                                        shortDesc = '';
+                                        plantId = '';
                                         _isLoading = false;
                                       })))
-                              : showSimpleNotification(
-                                  const Text(
-                                    "No Internet",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 20),
+                              : ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                      "No Internet",
+                                    ),
                                   ),
-                                  background: Colors.red,
                                 );
                         }
                       }),

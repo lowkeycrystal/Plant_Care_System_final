@@ -8,7 +8,7 @@ const textInputDecoration = InputDecoration(
       fontFamily: 'AvenirLight'),
   fillColor: Colors.white,
   focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Color.fromARGB(255, 18, 64, 38), width: 1.0),
+    borderSide: BorderSide(color: Color.fromARGB(255, 4, 197, 88), width: 2.0),
     borderRadius: BorderRadius.all(Radius.circular(10.0)),
   ),
   enabledBorder: OutlineInputBorder(

@@ -130,6 +130,7 @@ class MyHomePage extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
+                                    settings: const RouteSettings(name: "Home"),
                                     builder: (context) => const PlantScanner()),
                               );
                             },
@@ -154,6 +155,7 @@ class MyHomePage extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
+                                    settings: const RouteSettings(name: "Main"),
                                     builder: (context) => const Register()),
                               );
                             },

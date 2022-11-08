@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import '../main.dart';
+import 'package:plant_care_system/screens/updateInfo.dart';
 import 'dart:async';
 import 'package:line_icons/line_icons.dart';
 import 'package:flutter_close_app/flutter_close_app.dart';
@@ -71,6 +71,7 @@ class _PlantInfoState extends State<PlantInfo> {
           child: Scaffold(
               backgroundColor: const Color.fromARGB(255, 229, 242, 201),
               appBar: AppBar(
+                automaticallyImplyLeading: false,
                 iconTheme: const IconThemeData(
                     color: Color.fromARGB(255, 199, 217, 137)),
                 actions: <Widget>[
@@ -87,11 +88,8 @@ class _PlantInfoState extends State<PlantInfo> {
                           ),
                           TextButton(
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const MyApp()),
-                              );
+                              Navigator.of(context)
+                                  .popUntil((route) => route.isFirst);
                             },
                             child: const Text('Close'),
                           ),
@@ -269,7 +267,15 @@ class _PlantInfoState extends State<PlantInfo> {
                                                     const EdgeInsets.symmetric(
                                                         vertical: 15,
                                                         horizontal: 30)),
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .push(MaterialPageRoute(
+                                                builder: (context) =>
+                                                    UpdateInfo(
+                                                  qrResult: qrResult,
+                                                ),
+                                              ));
+                                            },
                                           ),
                                         ),
                                         const SizedBox(
