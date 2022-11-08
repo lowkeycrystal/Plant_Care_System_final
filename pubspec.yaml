@@ -51,7 +51,7 @@ dependencies:
   internet_connection_checker: ^0.0.1+4
   overlay_support: ^2.0.1
   flutter_close_app: ^1.0.0
-
+  carousel_slider: ^4.0.0-nullsafety.0
   
 
 dev_dependencies:
@@ -99,6 +99,20 @@ flutter:
   assets:
   - assets/
   - assets/logo2.png
+  - assets/rhaphidophora.jpg
+  - assets/philodendron.jpg
+  - assets/monstera.jpg
+  - assets/calathea.jpg
+  - assets/anthurium.jpg
+  - assets/alocasia.jpg
+  - assets/ange.jpg
+  - assets/arl.jpg
+  - assets/jul.jpg
+  - assets/ren.jpg
+  - assets/ami.jpg
+  - assets/soc.jpg
+  - assets/ver.png
+  - assets/ange.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
