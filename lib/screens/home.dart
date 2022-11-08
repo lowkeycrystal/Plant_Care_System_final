@@ -4,6 +4,8 @@ import 'package:plant_care_system/screens/scanner.dart';
 import 'register.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:flutter_close_app/flutter_close_app.dart';
+import 'package:plant_care_system/screens/About.dart';
+import 'package:plant_care_system/screens/Supported_Plants.dart';
 
 class MyHomePage extends StatelessWidget {
   final String title;
@@ -61,7 +63,15 @@ class MyHomePage extends StatelessWidget {
                     title: const Text('Home',
                         style: TextStyle(
                             color: Color.fromARGB(255, 199, 217, 137))),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MyHomePage(
+                                  title: '',
+                                )),
+                      );
+                    },
                   ),
                   ListTile(
                     leading: const Icon(LineIcons.seedling,
@@ -69,7 +79,13 @@ class MyHomePage extends StatelessWidget {
                     title: const Text('Supported Plants',
                         style: TextStyle(
                             color: Color.fromARGB(255, 199, 217, 137))),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SuppPlant()),
+                      );
+                    },
                   ),
                   ListTile(
                     leading: const Icon(LineIcons.tools,
@@ -85,7 +101,12 @@ class MyHomePage extends StatelessWidget {
                     title: const Text('About',
                         style: TextStyle(
                             color: Color.fromARGB(255, 199, 217, 137))),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const About()),
+                      );
+                    },
                   ),
                 ],
               ),

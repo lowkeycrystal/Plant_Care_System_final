@@ -2,12 +2,12 @@ import 'dart:html';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const About());
 }
 
-class MyApp extends StatelessWidget {
+class About extends StatelessWidget {
   // ignore: use_key_in_widget_constructors
-  const MyApp();
+  const About();
 
   @override
   Widget build(BuildContext context) {
