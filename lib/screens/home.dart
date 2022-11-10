@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:plant_care_system/bluetooth/main_page.dart';
 import 'package:plant_care_system/screens/scanner.dart';
+import 'bluetooth/pages/devices.dart';
 import 'register.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:flutter_close_app/flutter_close_app.dart';
@@ -33,7 +33,7 @@ class MyHomePage extends StatelessWidget {
                               // ignore: prefer_const_literals_to_create_immutables
                               colors: <Color>[
                         Color.fromARGB(255, 18, 64, 38),
-                        Color.fromARGB(255, 18, 60, 12)
+                        Color.fromARGB(255, 38, 94, 30)
                       ]))),
                   title: const Text('Home',
                       style:
@@ -53,7 +53,7 @@ class MyHomePage extends StatelessWidget {
                                   end: Alignment.topRight,
                                   colors: <Color>[
                                 Color.fromARGB(255, 18, 64, 38),
-                                Color.fromARGB(255, 18, 64, 38)
+                                Color.fromARGB(255, 38, 94, 30)
                               ])),
                           child: null,
                         ),
@@ -177,11 +177,8 @@ class MyHomePage extends StatelessWidget {
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 20, horizontal: 90)),
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const MainPage()),
-                              );
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const DevicesPage()));
                             },
                           ),
                         ]),
