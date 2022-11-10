@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
             children: [
               CarouselSlider(
                   items: [
-                    Container(
+                    SizedBox(
                       height: double.infinity,
                       width: double.infinity,
                       child: Column(
@@ -97,7 +97,7 @@ class MyApp extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       height: double.infinity,
                       width: double.infinity,
                       child: Column(
@@ -159,7 +159,7 @@ class MyApp extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       height: double.infinity,
                       width: double.infinity,
                       child: Column(
@@ -221,7 +221,7 @@ class MyApp extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       height: double.infinity,
                       width: double.infinity,
                       child: Column(
@@ -283,7 +283,7 @@ class MyApp extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       height: double.infinity,
                       width: double.infinity,
                       child: Column(
@@ -345,7 +345,7 @@ class MyApp extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       height: double.infinity,
                       width: double.infinity,
                       child: Column(

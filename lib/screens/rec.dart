@@ -1,9 +1,5 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'dart:async';
-import 'package:line_icons/line_icons.dart';
 
 void main() {
   runApp(const MyApp());
@@ -62,13 +58,13 @@ class MyApp extends StatelessWidget {
             body: SingleChildScrollView(
               child: Center(
                   child: Column(children: [
-                Container(
+                SizedBox(
                   height: 400,
                   width: 350,
                   child: Container(
                     height: double.infinity,
                     width: double.infinity,
-                    margin: EdgeInsets.only(
+                    margin: const EdgeInsets.only(
                       top: 40,
                     ),
                     padding: const EdgeInsets.only(
@@ -83,10 +79,10 @@ class MyApp extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
                         ),
-                        Align(
+                        const Align(
                           alignment: Alignment.center,
                         ),
                         Container(
@@ -103,18 +99,17 @@ class MyApp extends StatelessWidget {
                           padding: const EdgeInsets.only(
                             bottom: 22,
                           ),
-                          child: Text(
+                          child: const Text(
                             'Gathering Data',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 17),
                           ),
                         ),
-                        Container(
-                            child: Text(
+                        const Text(
                           'Make Sure that the device is placed properly on the right pot.',
                           textAlign: TextAlign.center,
                           style: TextStyle(fontSize: 12),
-                        )),
+                        ),
                       ],
                     ),
                   ),
@@ -122,17 +117,17 @@ class MyApp extends StatelessWidget {
                 Container(
                     height: 200,
                     width: 400,
-                    margin: EdgeInsets.only(
+                    margin: const EdgeInsets.only(
                       top: 30,
                     ),
                     child: Row(children: <Widget>[
                       Column(
                         children: <Widget>[
                           Container(
-                            margin: EdgeInsets.only(
+                            margin: const EdgeInsets.only(
                               bottom: 10,
                             ),
-                            child: Text(
+                            child: const Text(
                               'Moisture',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -140,7 +135,7 @@ class MyApp extends StatelessWidget {
                           Container(
                             height: 150,
                             width: 175,
-                            margin: EdgeInsets.only(left: 5),
+                            margin: const EdgeInsets.only(left: 5),
                             decoration: BoxDecoration(
                               color: Colors.grey,
                               borderRadius: BorderRadius.circular(30),
@@ -148,8 +143,9 @@ class MyApp extends StatelessWidget {
                             child: Row(
                               children: [
                                 Container(
-                                  margin: EdgeInsets.only(left: 10, right: 10),
-                                  child: Text(
+                                  margin: const EdgeInsets.only(
+                                      left: 10, right: 10),
+                                  child: const Text(
                                     '20%',
                                     style: TextStyle(fontSize: 45),
                                   ),
@@ -159,7 +155,7 @@ class MyApp extends StatelessWidget {
                                   width: 3,
                                   height: 100,
                                 ),
-                                Container(
+                                SizedBox(
                                     height: 50,
                                     width: 50,
                                     child: Column(
@@ -168,25 +164,23 @@ class MyApp extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Container(
-                            child: Text(
-                              ' Level: Too Low',
-                              style: TextStyle(fontSize: 16),
-                            ),
+                          const Text(
+                            ' Level: Too Low',
+                            style: TextStyle(fontSize: 16),
                           ),
                         ],
                       ),
-                      Container(
+                      const SizedBox(
                         height: 1,
                         width: 15,
                       ),
                       Column(
                         children: <Widget>[
                           Container(
-                            margin: EdgeInsets.only(
+                            margin: const EdgeInsets.only(
                               bottom: 10,
                             ),
-                            child: Text(
+                            child: const Text(
                               'Temperature',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -201,8 +195,9 @@ class MyApp extends StatelessWidget {
                             child: Row(
                               children: [
                                 Container(
-                                  margin: EdgeInsets.only(left: 10, right: 10),
-                                  child: Text(
+                                  margin: const EdgeInsets.only(
+                                      left: 10, right: 10),
+                                  child: const Text(
                                     '98 F',
                                     style: TextStyle(fontSize: 45),
                                   ),
@@ -212,7 +207,7 @@ class MyApp extends StatelessWidget {
                                   width: 3,
                                   height: 100,
                                 ),
-                                Container(
+                                SizedBox(
                                     height: 50,
                                     width: 50,
                                     child: Column(
@@ -221,11 +216,9 @@ class MyApp extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Container(
-                            child: Text(
-                              ' Level: Too High',
-                              style: TextStyle(fontSize: 16),
-                            ),
+                          const Text(
+                            ' Level: Too High',
+                            style: TextStyle(fontSize: 16),
                           ),
                         ],
                       ),

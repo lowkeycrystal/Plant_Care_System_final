@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -120,11 +119,8 @@ class MyApp extends StatelessWidget {
                       ),
                     )),
               ),
-              Container(
-                child: Column(children: [
-                  const Image(image: AssetImage('assets/ver.png'))
-                ]),
-              ),
+              Column(
+                  children: const [Image(image: AssetImage('assets/ver.png'))]),
               Container(
                 width: 1000,
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
@@ -385,15 +381,15 @@ class MyApp extends StatelessWidget {
                           children: <Widget>[
                             Container(
                               margin: const EdgeInsets.only(top: 10),
-                              child: CircleAvatar(
+                              child: const CircleAvatar(
                                 radius: 70,
-                                backgroundColor: const Color.fromARGB(
+                                backgroundColor: Color.fromARGB(
                                   255,
                                   18,
                                   64,
                                   38,
                                 ),
-                                child: const Padding(
+                                child: Padding(
                                   padding: EdgeInsets.all(4),
                                   child: ClipOval(
                                       child: Image(
