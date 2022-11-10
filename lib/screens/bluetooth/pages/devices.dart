@@ -252,7 +252,7 @@ class _DevicesPageState extends State<DevicesPage> {
         onTap: () async {
           flutterBlue.stopScan();
           try {
-            BluetoothCharacteristic? _characteristic;
+            BluetoothCharacteristic? characteristic;
 
             setState(() {
               isConnecting = true;
@@ -266,12 +266,12 @@ class _DevicesPageState extends State<DevicesPage> {
                 if (characteristics.properties.read &&
                     characteristics.properties.writeWithoutResponse &&
                     characteristics.properties.notify) {
-                  _characteristic = characteristics;
+                  characteristic = characteristics;
                 }
               }
             }
 
-            if (_characteristic != null) {
+            if (characteristic != null) {
               setState(() {
                 isConnecting = false;
               });
@@ -280,7 +280,7 @@ class _DevicesPageState extends State<DevicesPage> {
                 MaterialPageRoute(
                   builder: (context) => HomePage(
                     device: device,
-                    characteristics: _characteristic!,
+                    characteristics: characteristic!,
                   ),
                 ),
               );

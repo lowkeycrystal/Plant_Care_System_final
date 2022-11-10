@@ -648,14 +648,6 @@ class MyCustomFormState extends State<MyCustomForm> {
                     const EdgeInsets.symmetric(horizontal: 32, vertical: 16.0),
                 child: Center(
                   child: ElevatedButton(
-                      child: _isLoading
-                          ? const CircularProgressIndicator(
-                              color: Colors.white,
-                            )
-                          : const Text(
-                              'Save and Generate QR Code',
-                              style: TextStyle(fontSize: 20),
-                            ),
                       style: ElevatedButton.styleFrom(
                         onPrimary: const Color.fromARGB(255, 199, 217, 137),
                         primary: const Color.fromARGB(255, 18, 64, 38),
@@ -747,7 +739,15 @@ class MyCustomFormState extends State<MyCustomForm> {
                                   ),
                                 );
                         }
-                      }),
+                      },
+                      child: _isLoading
+                          ? const CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : const Text(
+                              'Save and Generate QR Code',
+                              style: TextStyle(fontSize: 20),
+                            )),
                 ),
               ),
             ],

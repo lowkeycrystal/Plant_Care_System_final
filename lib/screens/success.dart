@@ -76,7 +76,7 @@ class DownloadqrState extends State<Downloadqr> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(70, 20, 70, 0),
                     child: Text(
-                      widget.pnforward + " is Registered Succesfully!",
+                      "${widget.pnforward} is Registered Succesfully!",
                       style: const TextStyle(
                           color: Color.fromARGB(255, 0, 0, 0),
                           fontSize: 20,
@@ -113,10 +113,6 @@ class DownloadqrState extends State<Downloadqr> {
                       )),
                   const SizedBox(height: 50),
                   ElevatedButton(
-                    child: const Text(
-                      'Share or Save QR Code',
-                      style: TextStyle(fontSize: 20),
-                    ),
                     style: ElevatedButton.styleFrom(
                       onPrimary: const Color.fromARGB(255, 199, 217, 137),
                       primary: const Color.fromARGB(255, 18, 64, 38),
@@ -157,13 +153,13 @@ class DownloadqrState extends State<Downloadqr> {
                         print(e.toString());
                       }
                     },
+                    child: const Text(
+                      'Share or Save QR Code',
+                      style: TextStyle(fontSize: 20),
+                    ),
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton(
-                    child: const Text(
-                      'Register Another Plant',
-                      style: TextStyle(fontSize: 20),
-                    ),
                     style: ElevatedButton.styleFrom(
                       onPrimary: const Color.fromARGB(255, 18, 64, 38),
                       primary: const Color.fromARGB(255, 144, 191, 73),
@@ -179,13 +175,13 @@ class DownloadqrState extends State<Downloadqr> {
                             builder: (context) => const Register()),
                       );
                     },
+                    child: const Text(
+                      'Register Another Plant',
+                      style: TextStyle(fontSize: 20),
+                    ),
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton(
-                    child: const Text(
-                      'Exit',
-                      style: TextStyle(fontSize: 20),
-                    ),
                     style: ElevatedButton.styleFrom(
                       onPrimary: const Color.fromARGB(255, 18, 64, 38),
                       primary: const Color.fromARGB(255, 144, 191, 73),
@@ -197,6 +193,10 @@ class DownloadqrState extends State<Downloadqr> {
                     onPressed: () {
                       Navigator.of(context).popUntil((route) => route.isFirst);
                     },
+                    child: const Text(
+                      'Exit',
+                      style: TextStyle(fontSize: 20),
+                    ),
                   ),
                 ],
               ),

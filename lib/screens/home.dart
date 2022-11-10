@@ -112,10 +112,6 @@ class MyHomePage extends StatelessWidget {
                           ),
                           const SizedBox(height: 60),
                           ElevatedButton(
-                            child: const Text(
-                              'Scan QR Code',
-                              style: TextStyle(fontSize: 20),
-                            ),
                             style: ElevatedButton.styleFrom(
                                 onPrimary:
                                     const Color.fromARGB(255, 199, 217, 137),
@@ -134,13 +130,13 @@ class MyHomePage extends StatelessWidget {
                                     builder: (context) => const PlantScanner()),
                               );
                             },
+                            child: const Text(
+                              'Scan QR Code',
+                              style: TextStyle(fontSize: 20),
+                            ),
                           ),
                           const SizedBox(height: 20),
                           ElevatedButton(
-                            child: const Text(
-                              'Register A Plant',
-                              style: TextStyle(fontSize: 20),
-                            ),
                             style: ElevatedButton.styleFrom(
                                 onPrimary:
                                     const Color.fromARGB(255, 199, 217, 137),
@@ -159,13 +155,13 @@ class MyHomePage extends StatelessWidget {
                                     builder: (context) => const Register()),
                               );
                             },
+                            child: const Text(
+                              'Register A Plant',
+                              style: TextStyle(fontSize: 20),
+                            ),
                           ),
                           const SizedBox(height: 20),
                           ElevatedButton(
-                            child: const Text(
-                              'Connect Bluetooth',
-                              style: TextStyle(fontSize: 20),
-                            ),
                             style: ElevatedButton.styleFrom(
                                 onPrimary:
                                     const Color.fromARGB(255, 199, 217, 137),
@@ -180,6 +176,10 @@ class MyHomePage extends StatelessWidget {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => const DevicesPage()));
                             },
+                            child: const Text(
+                              'Connect Bluetooth',
+                              style: TextStyle(fontSize: 20),
+                            ),
                           ),
                         ]),
                   ),

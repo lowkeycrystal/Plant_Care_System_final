@@ -248,10 +248,6 @@ class _PlantInfoState extends State<PlantInfo> {
                                         Padding(
                                           padding: const EdgeInsets.all(5),
                                           child: ElevatedButton(
-                                            child: const Text(
-                                              'Update',
-                                              style: TextStyle(fontSize: 20),
-                                            ),
                                             style: ElevatedButton.styleFrom(
                                                 onPrimary: const Color.fromARGB(
                                                     255, 199, 217, 137),
@@ -276,6 +272,10 @@ class _PlantInfoState extends State<PlantInfo> {
                                                 ),
                                               ));
                                             },
+                                            child: const Text(
+                                              'Update',
+                                              style: TextStyle(fontSize: 20),
+                                            ),
                                           ),
                                         ),
                                         const SizedBox(
@@ -310,10 +310,6 @@ class _PlantInfoState extends State<PlantInfo> {
                             Padding(
                               padding: const EdgeInsets.all(5),
                               child: ElevatedButton(
-                                child: const Text(
-                                  'Gather Environment Data',
-                                  style: TextStyle(fontSize: 20),
-                                ),
                                 style: ElevatedButton.styleFrom(
                                   onPrimary:
                                       const Color.fromARGB(255, 199, 217, 137),
@@ -325,6 +321,10 @@ class _PlantInfoState extends State<PlantInfo> {
                                       borderRadius: BorderRadius.circular(30)),
                                 ),
                                 onPressed: () {},
+                                child: const Text(
+                                  'Gather Environment Data',
+                                  style: TextStyle(fontSize: 20),
+                                ),
                               ),
                             ),
                           ]),

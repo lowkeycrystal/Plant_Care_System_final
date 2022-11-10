@@ -96,7 +96,7 @@ class Data extends StatelessWidget {
                                   margin: const EdgeInsets.only(
                                       left: 10, right: 10),
                                   child: Text(
-                                    humidity.toString() + '%',
+                                    '$humidity%',
                                     style: const TextStyle(fontSize: 45),
                                   ),
                                 ),
@@ -150,7 +150,7 @@ class Data extends StatelessWidget {
                                   margin: const EdgeInsets.only(
                                       left: 10, right: 10),
                                   child: Text(
-                                    temperature.toString() + "C",
+                                    "${temperature}C",
                                     style: const TextStyle(fontSize: 45),
                                   ),
                                 ),
@@ -199,10 +199,6 @@ class Data extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(5),
                   child: ElevatedButton(
-                    child: const Text(
-                      'Done',
-                      style: TextStyle(fontSize: 20),
-                    ),
                     style: ElevatedButton.styleFrom(
                       onPrimary: const Color.fromARGB(255, 199, 217, 137),
                       primary: const Color.fromARGB(255, 18, 64, 38),
@@ -212,6 +208,10 @@ class Data extends StatelessWidget {
                           borderRadius: BorderRadius.circular(30)),
                     ),
                     onPressed: () {},
+                    child: const Text(
+                      'Done',
+                      style: TextStyle(fontSize: 20),
+                    ),
                   ),
                 ),
               ])),

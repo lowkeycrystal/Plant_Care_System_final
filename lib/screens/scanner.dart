@@ -184,14 +184,6 @@ class _ScanQRPageState extends State {
                             ),
                             const SizedBox(height: 20),
                             ElevatedButton(
-                              child: _isLoading
-                                  ? const CircularProgressIndicator(
-                                      color: Colors.white,
-                                    )
-                                  : const Text(
-                                      'Proceed',
-                                      style: TextStyle(fontSize: 20),
-                                    ),
                               style: ElevatedButton.styleFrom(
                                 onPrimary:
                                     const Color.fromARGB(255, 18, 64, 38),
@@ -265,6 +257,14 @@ class _ScanQRPageState extends State {
                                 //       builder: (context) => const PlantInfo()),
                                 // );
                               },
+                              child: _isLoading
+                                  ? const CircularProgressIndicator(
+                                      color: Colors.white,
+                                    )
+                                  : const Text(
+                                      'Proceed',
+                                      style: TextStyle(fontSize: 20),
+                                    ),
                             ),
                           ],
                         )

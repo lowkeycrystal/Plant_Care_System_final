@@ -229,10 +229,6 @@ class MyApp extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(5),
                   child: ElevatedButton(
-                    child: const Text(
-                      'Continue',
-                      style: TextStyle(fontSize: 20),
-                    ),
                     style: ElevatedButton.styleFrom(
                       onPrimary: const Color.fromARGB(255, 199, 217, 137),
                       primary: const Color.fromARGB(255, 18, 64, 38),
@@ -242,6 +238,10 @@ class MyApp extends StatelessWidget {
                           borderRadius: BorderRadius.circular(30)),
                     ),
                     onPressed: () {},
+                    child: const Text(
+                      'Continue',
+                      style: TextStyle(fontSize: 20),
+                    ),
                   ),
                 ),
               ])),
