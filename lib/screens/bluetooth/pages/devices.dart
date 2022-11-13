@@ -1,21 +1,43 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:plant_care_system/screens/plant_profile.dart';
 
 import '../widgets/snackbar_widget.dart';
-import 'home.dart';
+import 'gathering_screen.dart';
+
+void main() {
+  runApp(const DevicesPage(
+    qrResult: '',
+    plantName: '',
+    plantSpecie: '',
+  ));
+}
 
 class DevicesPage extends StatefulWidget {
-  const DevicesPage({Key? key}) : super(key: key);
+  final String qrResult;
+  final String plantName;
+  final String plantSpecie;
+  const DevicesPage(
+      {Key? key,
+      required this.qrResult,
+      required this.plantName,
+      required this.plantSpecie})
+      : super(key: key);
 
   @override
   _DevicesPageState createState() => _DevicesPageState();
 }
 
 class _DevicesPageState extends State<DevicesPage> {
+  late String qrResult = widget.qrResult;
+  late String plantName = widget.plantName;
+  late String plantSpecie = widget.plantSpecie;
+
   final String kServiceUUID = "0000ffe0-0000-1000-8000-00805f9b34fb";
   final String kCharacteristicUUID = "0000ffe1-0000-1000-8000-00805f9b34fb";
 
@@ -38,6 +60,7 @@ class _DevicesPageState extends State<DevicesPage> {
     );
 
     _permission();
+    qrResult = widget.qrResult;
   }
 
   _permission() async {
@@ -142,86 +165,115 @@ class _DevicesPageState extends State<DevicesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.green.shade900,
-      body: SafeArea(
-        child: Stack(
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
+    return WillPopScope(
+        onWillPop: () => Future.value(false),
+        child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            backgroundColor: const Color.fromARGB(255, 18, 64, 38),
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              iconTheme: const IconThemeData(
+                color: Color.fromARGB(255, 199, 217, 137),
+              ),
+              actions: <Widget>[
+                IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () => Navigator.pop(
+                          context,
+                        )),
+              ],
+              backgroundColor: Colors.transparent,
+              bottomOpacity: 0.0,
+              title: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Text(
+                      'Connect to Device',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 199, 217, 137),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  ]),
+              elevation: 0,
+            ),
+            body: SafeArea(
+              child: Stack(
                 children: [
-                  const SizedBox(height: 16),
-                  LayoutBuilder(
-                    builder: (context, _) {
-                      if (isLocActive) {
-                        if (isBTActive) {
-                          return Column(
-                            children: [
-                              StreamBuilder<bool>(
-                                stream: flutterBlue.isScanning,
-                                initialData: false,
-                                builder: (c, snapshot) {
-                                  if (snapshot.data!) {
-                                    return FloatingActionButton(
-                                      onPressed: () => flutterBlue.stopScan(),
-                                      backgroundColor: Colors.red,
-                                      child: const Icon(Icons.stop),
-                                    );
-                                  } else {
-                                    return FloatingActionButton(
-                                      onPressed: _startScan,
-                                      child: const Icon(Icons.search),
-                                    );
-                                  }
-                                },
-                              ),
-                              const SizedBox(height: 16),
-                              _deviceList(),
-                            ],
-                          );
-                        } else {
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 50),
-                            child: Center(
-                              child: Text(
-                                'Bluetooth is inactive.\nPlease turn it on.',
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline4!
-                                    .copyWith(color: Colors.white),
-                              ),
-                            ),
-                          );
-                        }
-                      } else {
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 50),
-                          child: Center(
-                            child: Text(
-                              'Location is inactive.\nPlease turn it on.',
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline4!
-                                  .copyWith(color: Colors.white),
-                            ),
-                          ),
-                        );
-                      }
-                    },
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 16),
+                        LayoutBuilder(
+                          builder: (context, _) {
+                            if (isLocActive) {
+                              if (isBTActive) {
+                                return Column(
+                                  children: [
+                                    StreamBuilder<bool>(
+                                      stream: flutterBlue.isScanning,
+                                      initialData: false,
+                                      builder: (c, snapshot) {
+                                        if (snapshot.data!) {
+                                          return FloatingActionButton(
+                                            onPressed: () =>
+                                                flutterBlue.stopScan(),
+                                            backgroundColor: Colors.red,
+                                            child: const Icon(Icons.stop),
+                                          );
+                                        } else {
+                                          return FloatingActionButton(
+                                            onPressed: _startScan,
+                                            child: const Icon(Icons.search),
+                                          );
+                                        }
+                                      },
+                                    ),
+                                    const SizedBox(height: 16),
+                                    _deviceList(),
+                                  ],
+                                );
+                              } else {
+                                return Padding(
+                                  padding: const EdgeInsets.only(top: 50),
+                                  child: Center(
+                                    child: Text(
+                                      'Bluetooth is inactive.\nPlease turn it on.',
+                                      textAlign: TextAlign.center,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline4!
+                                          .copyWith(color: Colors.white),
+                                    ),
+                                  ),
+                                );
+                              }
+                            } else {
+                              return Padding(
+                                padding: const EdgeInsets.only(top: 50),
+                                child: Center(
+                                  child: Text(
+                                    'Location is inactive.\nPlease turn it on.',
+                                    textAlign: TextAlign.center,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline4!
+                                        .copyWith(color: Colors.white),
+                                  ),
+                                ),
+                              );
+                            }
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
-            ),
-          ],
-        ),
-      ),
-    );
+            )));
   }
 
   Widget _deviceList() {
@@ -245,6 +297,11 @@ class _DevicesPageState extends State<DevicesPage> {
       ),
     );
   }
+
+  late final Stream<QuerySnapshot> plants = FirebaseFirestore.instance
+      .collection('PLANTS')
+      .where('Plant_Id', isEqualTo: widget.qrResult)
+      .snapshots();
 
   Widget _scanResultButton({BluetoothDevice? device}) {
     return Card(
@@ -278,9 +335,12 @@ class _DevicesPageState extends State<DevicesPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => HomePage(
+                  builder: (context) => GatheringScreen(
                     device: device,
                     characteristics: characteristic!,
+                    qrResult: qrResult,
+                    plantName: plantName,
+                    plantSpecie: plantSpecie,
                   ),
                 ),
               );

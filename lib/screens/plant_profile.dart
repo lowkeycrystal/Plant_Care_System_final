@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:plant_care_system/screens/updateInfo.dart';
+import 'package:plant_care_system/screens/bluetooth/pages/devices.dart';
+import 'package:plant_care_system/screens/bluetooth/pages/gathering_screen.dart';
+import 'package:plant_care_system/screens/update_info.dart';
 import 'dart:async';
 import 'package:line_icons/line_icons.dart';
 import 'package:flutter_close_app/flutter_close_app.dart';
@@ -320,7 +322,17 @@ class _PlantInfoState extends State<PlantInfo> {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30)),
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => DevicesPage(
+                                          qrResult: qrResult,
+                                          plantName:
+                                              '${data.docs[index]['Plant_Name']}',
+                                          plantSpecie:
+                                              '${data.docs[index]['Plant_Specie']}'),
+                                      settings: const RouteSettings(
+                                          name: "/PlantProfile")));
+                                },
                                 child: const Text(
                                   'Gather Environment Data',
                                   style: TextStyle(fontSize: 20),

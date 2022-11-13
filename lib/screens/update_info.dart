@@ -114,9 +114,6 @@ class UpdateInfoState extends State<UpdateInfo> {
   String? _selectedVarieties;
   String? _selectedSpecies;
 
-  String pnforward = '';
-  String pidforward = '';
-
   late final Stream<QuerySnapshot> plants = FirebaseFirestore.instance
       .collection('PLANTS')
       .where('Plant_Id', isEqualTo: widget.qrResult)

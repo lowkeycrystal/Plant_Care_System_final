@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:plant_care_system/screens/scanner.dart';
-import 'bluetooth/pages/devices.dart';
 import 'register.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:flutter_close_app/flutter_close_app.dart';
@@ -172,10 +171,7 @@ class MyHomePage extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(30)),
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 20, horizontal: 90)),
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const DevicesPage()));
-                            },
+                            onPressed: () {},
                             child: const Text(
                               'Connect Bluetooth',
                               style: TextStyle(fontSize: 20),
