@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_care_system/screens/bluetooth/pages/devices.dart';
-import 'package:plant_care_system/screens/bluetooth/pages/gathering_screen.dart';
 import 'package:plant_care_system/screens/update_info.dart';
 import 'dart:async';
 import 'package:line_icons/line_icons.dart';
@@ -26,10 +25,28 @@ class PlantInfo extends StatefulWidget {
 class _PlantInfoState extends State<PlantInfo> {
   late String qrResult = widget.qrResult;
 
+  double widget1Opacity = 0.00;
+  double widget2Opacity = 0.00;
+  double widget3Opacity = 0.00;
+  double widget4Opacity = 0.00;
+
   @override
   void initState() {
     super.initState();
     qrResult = widget.qrResult;
+
+    Future.delayed(const Duration(milliseconds: 300), () {
+      widget1Opacity = 1;
+    });
+    Future.delayed(const Duration(milliseconds: 400), () {
+      widget2Opacity = 1;
+    });
+    Future.delayed(const Duration(milliseconds: 500), () {
+      widget3Opacity = 1;
+    });
+    Future.delayed(const Duration(milliseconds: 600), () {
+      widget4Opacity = 1;
+    });
   }
 
   // late List<charts.Series<Temp, String>> _seriesBarData;
@@ -133,14 +150,23 @@ class _PlantInfoState extends State<PlantInfo> {
                     return ListView.builder(
                       itemCount: data.size,
                       itemBuilder: (context, index) {
+                        double tempRecord =
+                            double.parse('${data.docs[index]['Temp_Record']}');
+                        double humRecord =
+                            double.parse('${data.docs[index]['Hum_Record']}');
+                        double mstRecord =
+                            double.parse('${data.docs[index]['Moist_Record']}');
+                        double luxRecord =
+                            double.parse('${data.docs[index]['Light_Record']}');
+
                         return SingleChildScrollView(
                           child: Column(children: <Widget>[
                             Padding(
                                 padding: const EdgeInsets.all(1),
                                 child: Container(
                                     margin: const EdgeInsets.fromLTRB(
-                                        20, 30, 20, 0),
-                                    padding: const EdgeInsets.all(20),
+                                        20, 10, 20, 0),
+                                    padding: const EdgeInsets.all(10),
                                     decoration: BoxDecoration(
                                       color: const Color.fromARGB(
                                           255, 119, 217, 137),
@@ -151,7 +177,7 @@ class _PlantInfoState extends State<PlantInfo> {
                                       children: <Widget>[
                                         Container(
                                           margin: const EdgeInsets.fromLTRB(
-                                              0, 10, 0, 0),
+                                              0, 5, 0, 0),
                                           height: 80,
                                           width: 80,
                                           decoration: BoxDecoration(
@@ -168,7 +194,7 @@ class _PlantInfoState extends State<PlantInfo> {
                                           ),
                                         ),
                                         const SizedBox(
-                                          height: 20,
+                                          height: 15,
                                         ),
                                         Text(
                                           '${data.docs[index]['Plant_Name']}',
@@ -212,7 +238,7 @@ class _PlantInfoState extends State<PlantInfo> {
                                                 ),
                                               ),
                                               const SizedBox(
-                                                width: 15,
+                                                width: 10,
                                               ),
                                               Text(
                                                 'Current Age: ${data.docs[index]['Pot_TopDiameter']} months',
@@ -222,7 +248,7 @@ class _PlantInfoState extends State<PlantInfo> {
                                               ),
                                             ]),
                                         const SizedBox(
-                                          height: 15,
+                                          height: 10,
                                         ),
                                         Text(
                                           'Current Number of Leaves: ${data.docs[index]['Pot_BaseDiameter']} leaves',
@@ -231,7 +257,7 @@ class _PlantInfoState extends State<PlantInfo> {
                                           ),
                                         ),
                                         const SizedBox(
-                                          height: 25,
+                                          height: 15,
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.fromLTRB(
@@ -280,32 +306,174 @@ class _PlantInfoState extends State<PlantInfo> {
                                             ),
                                           ),
                                         ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
                                       ],
                                     ))),
                             const SizedBox(
                               height: 40,
                             ),
-                            // StreamBuilder<QuerySnapshot>(
-                            //   stream: temperature,
-                            //   builder: (
-                            //     BuildContext context,
-                            //     AsyncSnapshot<QuerySnapshot> snapshot,
-                            //   ) {
-                            //     if (!snapshot.hasData) {
-                            //       return const LinearProgressIndicator();
-                            //     } else {
-                            //       List<Temp> temperature = snapshot.data!.docs
-                            //           .map((documentSnapshot) => Temp.fromMap(
-                            //               documentSnapshot.data
-                            //                   as Map<String, dynamic>))
-                            //           .toList();
-                            //       return _buildChart(context, temperature);
-                            //     }
-                            //   },
-                            // ),
+                            (tempRecord == 0 &&
+                                    luxRecord == 0 &&
+                                    mstRecord == 0 &&
+                                    humRecord == 0)
+                                ? Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                        Icon(
+                                          LineIcons.seedling,
+                                          color: Color.fromARGB(
+                                              255, 137, 217, 137),
+                                          size: 150,
+                                        ),
+                                        Text("No Data",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w800,
+                                              fontSize: 50,
+                                              color: Color.fromARGB(
+                                                  255, 137, 217, 137),
+                                            )),
+                                        Text(
+                                            "Start Gathering Data to show latest gathered data history here",
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              color: Color.fromARGB(
+                                                  255, 137, 217, 137),
+                                            )),
+                                      ])
+                                : Center(
+                                    child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                        const Text("Last Data Gathered",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w800,
+                                              fontSize: 30,
+                                              color: Colors.black,
+                                            )),
+                                        Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Expanded(
+                                                  child: AnimatedOpacity(
+                                                opacity: widget1Opacity,
+                                                duration: const Duration(
+                                                    milliseconds: 300),
+                                                child: Column(
+                                                  children: [
+                                                    const Icon(
+                                                      Icons.thermostat_outlined,
+                                                      color: Colors.black,
+                                                      size: 50,
+                                                    ),
+                                                    const Text(
+                                                      'Temperature',
+                                                      style: TextStyle(
+                                                        fontSize: 15,
+                                                      ),
+                                                    ),
+                                                    const SizedBox(height: 10),
+                                                    Text(
+                                                      '$tempRecord °C',
+                                                      style: const TextStyle(
+                                                        fontSize: 20,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              )),
+                                              Expanded(
+                                                  child: AnimatedOpacity(
+                                                      opacity: widget2Opacity,
+                                                      duration: const Duration(
+                                                          milliseconds: 300),
+                                                      child: Column(
+                                                        children: [
+                                                          const Icon(
+                                                            Icons
+                                                                .water_outlined,
+                                                            color: Colors.black,
+                                                            size: 50,
+                                                          ),
+                                                          const Text(
+                                                            'Humidity',
+                                                            style: TextStyle(
+                                                              fontSize: 15,
+                                                            ),
+                                                          ),
+                                                          const SizedBox(
+                                                              height: 10),
+                                                          Text(
+                                                            '$humRecord %',
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 20,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ))),
+                                              Expanded(
+                                                  child: AnimatedOpacity(
+                                                      opacity: widget3Opacity,
+                                                      duration: const Duration(
+                                                          milliseconds: 300),
+                                                      child: Column(
+                                                        children: [
+                                                          const Icon(
+                                                            Icons
+                                                                .water_drop_outlined,
+                                                            color: Colors.black,
+                                                            size: 50,
+                                                          ),
+                                                          const Text(
+                                                            'Soil Moisture',
+                                                            style: TextStyle(
+                                                              fontSize: 15,
+                                                            ),
+                                                          ),
+                                                          const SizedBox(
+                                                              height: 10),
+                                                          Text(
+                                                            '$mstRecord %',
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 20,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ))),
+                                              Expanded(
+                                                  child: AnimatedOpacity(
+                                                      opacity: widget4Opacity,
+                                                      duration: const Duration(
+                                                          milliseconds: 300),
+                                                      child: Column(
+                                                        children: [
+                                                          const Icon(
+                                                            Icons
+                                                                .lightbulb_outline,
+                                                            color: Colors.black,
+                                                            size: 50,
+                                                          ),
+                                                          const Text(
+                                                            'Lux',
+                                                            style: TextStyle(
+                                                              fontSize: 15,
+                                                            ),
+                                                          ),
+                                                          const SizedBox(
+                                                              height: 10),
+                                                          Text(
+                                                            '$luxRecord lx',
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 20,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ))),
+                                            ]),
+                                      ])),
                             const SizedBox(
                               height: 40,
                             ),
@@ -318,9 +486,11 @@ class _PlantInfoState extends State<PlantInfo> {
                                   primary:
                                       const Color.fromARGB(255, 18, 64, 38),
                                   elevation: 20,
-                                  minimumSize: const Size(300, 50),
+                                  minimumSize: const Size(200, 60),
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30)),
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 20, horizontal: 90),
                                 ),
                                 onPressed: () {
                                   Navigator.of(context).push(MaterialPageRoute(

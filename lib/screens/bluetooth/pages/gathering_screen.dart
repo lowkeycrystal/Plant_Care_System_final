@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:plant_care_system/screens/plant_profile.dart';
 
 import '../widgets/snackbar_widget.dart';
 
@@ -33,6 +35,9 @@ class GatheringScreen extends StatefulWidget {
 class _GatheringScreenState extends State<GatheringScreen> {
   late BluetoothCharacteristic _characteristics;
   late StreamSubscription<List<int>> bleReceive;
+//for loading
+  bool hasInternet = false;
+  bool _isLoading = false;
 
 //data from sensor
   double temperature = 0.00;
@@ -165,300 +170,232 @@ class _GatheringScreenState extends State<GatheringScreen> {
                         //for luminance
 
                         return Center(
-                            child: Column(children: [
-                          Container(
-                            padding: const EdgeInsets.all(10),
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  AnimatedOpacity(
-                                      opacity: widget1Opacity,
-                                      duration:
-                                          const Duration(milliseconds: 300),
-                                      child: Column(
-                                        children: [
-                                          Icon(
-                                            Icons.thermostat_outlined,
-                                            color: getTempColor(temperature),
-                                            size: 80,
-                                          ),
-                                          const Text(
-                                            'Temperature',
-                                            style: TextStyle(
-                                              fontSize: 15,
+                          child: Column(children: [
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    AnimatedOpacity(
+                                        opacity: widget1Opacity,
+                                        duration:
+                                            const Duration(milliseconds: 300),
+                                        child: Column(
+                                          children: [
+                                            Icon(
+                                              Icons.thermostat_outlined,
+                                              color: getTempColor(temperature),
+                                              size: 80,
                                             ),
-                                          ),
-                                          const SizedBox(height: 10),
-                                          Text(
-                                            '$temperature °C',
-                                            style: const TextStyle(
-                                              fontSize: 20,
+                                            const Text(
+                                              'Temperature',
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                              ),
                                             ),
-                                          ),
-                                        ],
-                                      )),
-                                  AnimatedOpacity(
-                                      opacity: widget2Opacity,
-                                      duration:
-                                          const Duration(milliseconds: 300),
-                                      child: Column(
-                                        children: [
-                                          Icon(
-                                            Icons.water_outlined,
-                                            color: getHumColor(humidity),
-                                            size: 80,
-                                          ),
-                                          const Text(
-                                            'Humidity',
-                                            style: TextStyle(
-                                              fontSize: 15,
+                                            const SizedBox(height: 10),
+                                            Text(
+                                              '$temperature °C',
+                                              style: const TextStyle(
+                                                fontSize: 20,
+                                              ),
                                             ),
-                                          ),
-                                          const SizedBox(height: 10),
-                                          Text(
-                                            '$humidity %',
-                                            style: const TextStyle(
-                                              fontSize: 20,
+                                          ],
+                                        )),
+                                    AnimatedOpacity(
+                                        opacity: widget2Opacity,
+                                        duration:
+                                            const Duration(milliseconds: 300),
+                                        child: Column(
+                                          children: [
+                                            Icon(
+                                              Icons.water_outlined,
+                                              color: getHumColor(humidity),
+                                              size: 80,
                                             ),
-                                          ),
-                                        ],
-                                      )),
-                                ]),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(10),
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  AnimatedOpacity(
-                                      opacity: widget3Opacity,
-                                      duration:
-                                          const Duration(milliseconds: 300),
-                                      child: Column(
-                                        children: [
-                                          Icon(
-                                            Icons.water_drop_outlined,
-                                            color: getMstColor(moisture),
-                                            size: 100,
-                                          ),
-                                          const Text(
-                                            'Soil Moisture',
-                                            style: TextStyle(
-                                              fontSize: 15,
+                                            const Text(
+                                              'Humidity',
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                              ),
                                             ),
-                                          ),
-                                          const SizedBox(height: 10),
-                                          Text(
-                                            '$moisture %',
-                                            style: const TextStyle(
-                                              fontSize: 20,
+                                            const SizedBox(height: 10),
+                                            Text(
+                                              '$humidity %',
+                                              style: const TextStyle(
+                                                fontSize: 20,
+                                              ),
                                             ),
-                                          ),
-                                        ],
-                                      )),
-                                  AnimatedOpacity(
-                                      opacity: widget4Opacity,
-                                      duration:
-                                          const Duration(milliseconds: 300),
-                                      child: Column(
-                                        children: [
-                                          Icon(
-                                            Icons.lightbulb_outline,
-                                            color: getLightColor(lux),
-                                            size: 80,
-                                          ),
-                                          const Text(
-                                            'Lux',
-                                            style: TextStyle(
-                                              fontSize: 15,
+                                          ],
+                                        )),
+                                  ]),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    AnimatedOpacity(
+                                        opacity: widget3Opacity,
+                                        duration:
+                                            const Duration(milliseconds: 300),
+                                        child: Column(
+                                          children: [
+                                            Icon(
+                                              Icons.water_drop_outlined,
+                                              color: getMstColor(moisture),
+                                              size: 100,
                                             ),
-                                          ),
-                                          const SizedBox(height: 10),
-                                          Text(
-                                            '$lux lx',
-                                            style: const TextStyle(
-                                              fontSize: 20,
+                                            const Text(
+                                              'Soil Moisture',
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                              ),
                                             ),
-                                          ),
-                                        ],
-                                      )),
-                                ]),
-                          ),
+                                            const SizedBox(height: 10),
+                                            Text(
+                                              '$moisture %',
+                                              style: const TextStyle(
+                                                fontSize: 20,
+                                              ),
+                                            ),
+                                          ],
+                                        )),
+                                    AnimatedOpacity(
+                                        opacity: widget4Opacity,
+                                        duration:
+                                            const Duration(milliseconds: 300),
+                                        child: Column(
+                                          children: [
+                                            Icon(
+                                              Icons.lightbulb_outline,
+                                              color: getLightColor(lux),
+                                              size: 80,
+                                            ),
+                                            const Text(
+                                              'Lux',
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 10),
+                                            Text(
+                                              '$lux lx',
+                                              style: const TextStyle(
+                                                fontSize: 20,
+                                              ),
+                                            ),
+                                          ],
+                                        )),
+                                  ]),
+                            ),
 
 ////////////// recommendation boxes starts here ////////////////////////////////////////////////
-                          ///
-                          Column(
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(20, 20, 20, 0),
-                                child: Container(
-                                  padding: const EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                    color: locationContainer(),
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                  alignment: Alignment.center,
-                                  child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Row(children: [
-                                          Container(
-                                              padding: const EdgeInsets.all(5),
-                                              width: 50,
-                                              height: 50,
-                                              child: (temperature > mintemp &&
-                                                          temperature <
-                                                              maxtemp) &&
-                                                      (humidity > minhum &&
-                                                          humidity < maxhum)
-                                                  ? Icon(
-                                                      Icons
-                                                          .check_circle_outline,
-                                                      color: locationIcon(),
-                                                      size: 50,
-                                                    )
-                                                  : Icon(
-                                                      Icons.cancel_outlined,
-                                                      color: locationIcon(),
-                                                      size: 50,
-                                                    )),
-                                          Expanded(
-                                            child: Container(
-                                              alignment: Alignment.centerLeft,
-                                              padding: const EdgeInsets.all(5),
-                                              child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    const Text(
-                                                      'Location:',
-                                                      style: TextStyle(
-                                                          color: Colors.black87,
-                                                          fontSize: 20,
-                                                          fontWeight:
-                                                              FontWeight.w800,
-                                                          fontFamily:
-                                                              'AvenirLight'),
-                                                    ),
-                                                    Text(
-                                                      locationresult(
-                                                          temperature,
-                                                          humidity),
-                                                      style: const TextStyle(
-                                                          color: Colors.black87,
-                                                          fontSize: 15,
-                                                          fontWeight:
-                                                              FontWeight.w300,
-                                                          fontFamily:
-                                                              'AvenirLight'),
-                                                    ),
-                                                    Text(
-                                                      locationinfo,
-                                                      style: const TextStyle(
-                                                          color: Colors.black87,
-                                                          fontSize: 15,
-                                                          fontWeight:
-                                                              FontWeight.w100,
-                                                          fontFamily:
-                                                              'AvenirLight'),
-                                                    )
-                                                  ]),
-                                            ),
-                                          ),
-                                        ]),
-                                      ]),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(20, 20, 20, 0),
-                                child: Container(
-                                  padding: const EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                    color: waterlevelContainer(),
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                  alignment: Alignment.center,
-                                  child: Column(children: [
-                                    Row(children: [
-                                      Container(
-                                          padding: const EdgeInsets.all(5),
-                                          width: 50,
-                                          height: 50,
-                                          child: moisture > minmst &&
-                                                  moisture < maxmst
-                                              ? Icon(
-                                                  Icons.check_circle_outline,
-                                                  color: waterlevelIcon(),
-                                                  size: 50,
-                                                )
-                                              : Icon(
-                                                  Icons.cancel_outlined,
-                                                  color: waterlevelIcon(),
-                                                  size: 50,
-                                                )),
-                                      Expanded(
-                                        child: Container(
-                                          alignment: Alignment.centerLeft,
-                                          padding: const EdgeInsets.all(5),
-                                          child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                const Text(
-                                                  'Water Level:',
-                                                  style: TextStyle(
-                                                      color: Colors.black87,
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.w800,
-                                                      fontFamily:
-                                                          'AvenirLight'),
-                                                ),
-                                                Text(
-                                                  waterlevelresult(moisture),
-                                                  style: const TextStyle(
-                                                      color: Colors.black87,
-                                                      fontSize: 15,
-                                                      fontWeight:
-                                                          FontWeight.w300,
-                                                      fontFamily:
-                                                          'AvenirLight'),
-                                                ),
-                                                Text(
-                                                  waterlevelinfo,
-                                                  style: const TextStyle(
-                                                      color: Colors.black87,
-                                                      fontSize: 15,
-                                                      fontWeight:
-                                                          FontWeight.w100,
-                                                      fontFamily:
-                                                          'AvenirLight'),
-                                                )
-                                              ]),
-                                        ),
-                                      ),
-                                    ]),
-                                  ]),
-                                ),
-                              ),
-                              Padding(
+                            ///
+                            Column(
+                              children: [
+                                Padding(
                                   padding:
                                       const EdgeInsets.fromLTRB(20, 20, 20, 0),
                                   child: Container(
                                     padding: const EdgeInsets.all(5),
                                     decoration: BoxDecoration(
-                                      color: luminanceContainer(),
+                                      color: locationContainer(),
+                                      borderRadius: BorderRadius.circular(30),
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Row(children: [
+                                            Container(
+                                                padding:
+                                                    const EdgeInsets.all(5),
+                                                width: 50,
+                                                height: 50,
+                                                child: (temperature > mintemp &&
+                                                            temperature <
+                                                                maxtemp) &&
+                                                        (humidity > minhum &&
+                                                            humidity < maxhum)
+                                                    ? Icon(
+                                                        Icons
+                                                            .check_circle_outline,
+                                                        color: locationIcon(),
+                                                        size: 50,
+                                                      )
+                                                    : Icon(
+                                                        Icons.cancel_outlined,
+                                                        color: locationIcon(),
+                                                        size: 50,
+                                                      )),
+                                            Expanded(
+                                              child: Container(
+                                                alignment: Alignment.centerLeft,
+                                                padding:
+                                                    const EdgeInsets.all(5),
+                                                child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      const Text(
+                                                        'Location:',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.black87,
+                                                            fontSize: 20,
+                                                            fontWeight:
+                                                                FontWeight.w800,
+                                                            fontFamily:
+                                                                'AvenirLight'),
+                                                      ),
+                                                      Text(
+                                                        locationresult(
+                                                            temperature,
+                                                            humidity),
+                                                        style: const TextStyle(
+                                                            color:
+                                                                Colors.black87,
+                                                            fontSize: 15,
+                                                            fontWeight:
+                                                                FontWeight.w300,
+                                                            fontFamily:
+                                                                'AvenirLight'),
+                                                      ),
+                                                      Text(
+                                                        locationinfo,
+                                                        style: const TextStyle(
+                                                            color:
+                                                                Colors.black87,
+                                                            fontSize: 15,
+                                                            fontWeight:
+                                                                FontWeight.w100,
+                                                            fontFamily:
+                                                                'AvenirLight'),
+                                                      )
+                                                    ]),
+                                              ),
+                                            ),
+                                          ]),
+                                        ]),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                                  child: Container(
+                                    padding: const EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                      color: waterlevelContainer(),
                                       borderRadius: BorderRadius.circular(30),
                                     ),
                                     alignment: Alignment.center,
@@ -468,55 +405,202 @@ class _GatheringScreenState extends State<GatheringScreen> {
                                             padding: const EdgeInsets.all(5),
                                             width: 50,
                                             height: 50,
-                                            child: lux > minlux && lux < maxlux
+                                            child: moisture > minmst &&
+                                                    moisture < maxmst
                                                 ? Icon(
                                                     Icons.check_circle_outline,
-                                                    color: luminanceIcon(),
+                                                    color: waterlevelIcon(),
                                                     size: 50,
                                                   )
                                                 : Icon(
                                                     Icons.cancel_outlined,
-                                                    color: luminanceIcon(),
+                                                    color: waterlevelIcon(),
                                                     size: 50,
                                                   )),
                                         Expanded(
                                           child: Container(
                                             alignment: Alignment.centerLeft,
                                             padding: const EdgeInsets.all(5),
-                                            child: Column(children: [
-                                              const Text(
-                                                'Luminance:',
-                                                style: TextStyle(
-                                                    color: Colors.black87,
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.w800,
-                                                    fontFamily: 'AvenirLight'),
-                                              ),
-                                              Text(
-                                                illuminationresult(lux),
-                                                style: const TextStyle(
-                                                    color: Colors.black87,
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.w300,
-                                                    fontFamily: 'AvenirLight'),
-                                              ),
-                                              Text(
-                                                illuminationinfo,
-                                                style: const TextStyle(
-                                                    color: Colors.black87,
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.w100,
-                                                    fontFamily: 'AvenirLight'),
-                                              )
-                                            ]),
+                                            child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  const Text(
+                                                    'Water Level:',
+                                                    style: TextStyle(
+                                                        color: Colors.black87,
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.w800,
+                                                        fontFamily:
+                                                            'AvenirLight'),
+                                                  ),
+                                                  Text(
+                                                    waterlevelresult(moisture),
+                                                    style: const TextStyle(
+                                                        color: Colors.black87,
+                                                        fontSize: 15,
+                                                        fontWeight:
+                                                            FontWeight.w300,
+                                                        fontFamily:
+                                                            'AvenirLight'),
+                                                  ),
+                                                  Text(
+                                                    waterlevelinfo,
+                                                    style: const TextStyle(
+                                                        color: Colors.black87,
+                                                        fontSize: 15,
+                                                        fontWeight:
+                                                            FontWeight.w100,
+                                                        fontFamily:
+                                                            'AvenirLight'),
+                                                  )
+                                                ]),
                                           ),
                                         ),
                                       ]),
                                     ]),
-                                  )),
-                            ],
-                          ),
-                        ]));
+                                  ),
+                                ),
+                                Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        20, 20, 20, 0),
+                                    child: Container(
+                                      padding: const EdgeInsets.all(5),
+                                      decoration: BoxDecoration(
+                                        color: luminanceContainer(),
+                                        borderRadius: BorderRadius.circular(30),
+                                      ),
+                                      alignment: Alignment.center,
+                                      child: Column(children: [
+                                        Row(children: [
+                                          Container(
+                                              padding: const EdgeInsets.all(5),
+                                              width: 50,
+                                              height: 50,
+                                              child: lux > minlux &&
+                                                      lux < maxlux
+                                                  ? Icon(
+                                                      Icons
+                                                          .check_circle_outline,
+                                                      color: luminanceIcon(),
+                                                      size: 50,
+                                                    )
+                                                  : Icon(
+                                                      Icons.cancel_outlined,
+                                                      color: luminanceIcon(),
+                                                      size: 50,
+                                                    )),
+                                          Expanded(
+                                            child: Container(
+                                              alignment: Alignment.centerLeft,
+                                              padding: const EdgeInsets.all(5),
+                                              child: Column(children: [
+                                                const Text(
+                                                  'Luminance:',
+                                                  style: TextStyle(
+                                                      color: Colors.black87,
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                      fontFamily:
+                                                          'AvenirLight'),
+                                                ),
+                                                Text(
+                                                  illuminationresult(lux),
+                                                  style: const TextStyle(
+                                                      color: Colors.black87,
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                      fontFamily:
+                                                          'AvenirLight'),
+                                                ),
+                                                Text(
+                                                  illuminationinfo,
+                                                  style: const TextStyle(
+                                                      color: Colors.black87,
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.w100,
+                                                      fontFamily:
+                                                          'AvenirLight'),
+                                                )
+                                              ]),
+                                            ),
+                                          ),
+                                        ]),
+                                      ]),
+                                    )),
+                              ],
+                            ),
+                            ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    onPrimary: const Color.fromARGB(
+                                        255, 199, 217, 137),
+                                    primary:
+                                        const Color.fromARGB(255, 18, 64, 38),
+                                    elevation: 20,
+                                    minimumSize: const Size(200, 60),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30)),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 20, horizontal: 90)),
+                                onPressed: () async {
+                                  hasInternet =
+                                      await InternetConnectionChecker()
+                                          .hasConnection;
+
+                                  await FirebaseFirestore.instance
+                                      .collection("PLANTS")
+                                      .where('Plant_Id',
+                                          isEqualTo: widget.qrResult)
+                                      .get()
+                                      .then((val) => val.docs.forEach((doc) => {
+                                            doc.reference.set({
+                                              'Temp_Record': temperature,
+                                              'Light_Record': lux,
+                                              'Moist_Record': moisture,
+                                              'Hum_Record': humidity
+                                            }, SetOptions(merge: true)).then(
+                                                (value) {})
+                                          }));
+                                  setState(() =>
+                                      hasInternet ? _isLoading = true : false);
+                                  await Future.delayed(
+                                      const Duration(seconds: 2));
+
+                                  hasInternet
+                                      ? Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const PlantInfo(
+                                                    qrResult: 'qrResult',
+                                                  )),
+                                        )
+                                      : ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                              "No Internet",
+                                            ),
+                                          ),
+                                        );
+                                },
+                                child: _isLoading
+                                    ? const CircularProgressIndicator(
+                                        color: Colors.white,
+                                      )
+                                    : const Text(
+                                        'Save and Close',
+                                        style: TextStyle(fontSize: 20),
+                                      )),
+                          ]),
+                        );
                       });
                 })));
   }

@@ -684,9 +684,7 @@ class UpdateInfoState extends State<UpdateInfo> {
                                                 });
                                                 batch.commit();
                                               }
-                                              // .then((value) => print('User is added'))
-                                              // .catchError((error) =>
-                                              //     print('Failed to add user: $error'));
+                                             
 
                                               // loading
 

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:plant_care_system/screens/plant_profile.dart';
 
 import '../widgets/snackbar_widget.dart';
 import 'gathering_screen.dart';

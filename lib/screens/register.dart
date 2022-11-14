@@ -81,9 +81,11 @@ class MyCustomForm extends StatefulWidget {
 }
 
 class MyCustomFormState extends State<MyCustomForm> {
+  //for loading
   bool hasInternet = false;
   bool _isLoading = false;
 
+//for the form
   var plantName = '';
   var plantVariety = '';
   var plantSpecie = '';
@@ -95,6 +97,12 @@ class MyCustomFormState extends State<MyCustomForm> {
   var potType = '';
   var shortDesc = '';
   var plantId = '';
+
+//for data gathering
+  double temperature = 0.00;
+  double humidity = 0.00;
+  double moisture = 0.00;
+  double lux = 0.00;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -689,6 +697,10 @@ class MyCustomFormState extends State<MyCustomForm> {
                             'Pot_TopDiameter': potTopDiameter,
                             'Short_Desc': shortDesc,
                             'Plant_Id': plantId,
+                            'Temp_Record': temperature,
+                            'Light_Record': lux,
+                            'Moist_Record': moisture,
+                            'Hum_Record': humidity
                           });
                           // .then((value) => print('User is added'))
                           // .catchError((error) =>
