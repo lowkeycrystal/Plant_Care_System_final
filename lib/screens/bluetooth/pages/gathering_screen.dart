@@ -35,6 +35,7 @@ class GatheringScreen extends StatefulWidget {
 class _GatheringScreenState extends State<GatheringScreen> {
   late BluetoothCharacteristic _characteristics;
   late StreamSubscription<List<int>> bleReceive;
+  late String qrResult = widget.qrResult;
 //for loading
   bool hasInternet = false;
   bool _isLoading = false;
@@ -84,17 +85,18 @@ class _GatheringScreenState extends State<GatheringScreen> {
     _characteristics = widget.characteristics;
     _listenBluetoothConnectionStatus();
     _receiveFromBT();
+    qrResult = widget.qrResult;
 
-    Future.delayed(const Duration(milliseconds: 300), () {
+    Future.delayed(const Duration(milliseconds: 100), () {
       widget1Opacity = 1;
     });
-    Future.delayed(const Duration(milliseconds: 400), () {
+    Future.delayed(const Duration(milliseconds: 300), () {
       widget2Opacity = 1;
     });
     Future.delayed(const Duration(milliseconds: 500), () {
       widget3Opacity = 1;
     });
-    Future.delayed(const Duration(milliseconds: 600), () {
+    Future.delayed(const Duration(milliseconds: 700), () {
       widget4Opacity = 1;
     });
   }
@@ -536,6 +538,9 @@ class _GatheringScreenState extends State<GatheringScreen> {
                                     )),
                               ],
                             ),
+                            const SizedBox(
+                              height: 20,
+                            ),
                             ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     onPrimary: const Color.fromARGB(
@@ -543,7 +548,7 @@ class _GatheringScreenState extends State<GatheringScreen> {
                                     primary:
                                         const Color.fromARGB(255, 18, 64, 38),
                                     elevation: 20,
-                                    minimumSize: const Size(200, 60),
+                                    minimumSize: const Size(300, 60),
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(30)),
@@ -577,9 +582,8 @@ class _GatheringScreenState extends State<GatheringScreen> {
                                       ? Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const PlantInfo(
-                                                    qrResult: 'qrResult',
+                                              builder: (context) => PlantInfo(
+                                                    qrResult: qrResult,
                                                   )),
                                         )
                                       : ScaffoldMessenger.of(context)
@@ -677,9 +681,9 @@ class _GatheringScreenState extends State<GatheringScreen> {
   //Function to get color depending on the temperature
   Color getTempColor(double temperature) {
     if (temperature < mintemp) {
-      return Colors.blue;
-    } else if (temperature > mintemp && temperature < mintemp) {
       return Colors.orange;
+    } else if (temperature > mintemp && temperature < maxtemp) {
+      return Colors.blue;
     } else {
       return Colors.red;
     }
@@ -688,9 +692,9 @@ class _GatheringScreenState extends State<GatheringScreen> {
   //Function to get color depending on the humidity
   Color getHumColor(double humidity) {
     if (humidity < minhum) {
-      return Colors.blue;
-    } else if (humidity > minhum && humidity < maxhum) {
       return Colors.orange;
+    } else if (humidity > minhum && humidity < maxhum) {
+      return Colors.blue;
     } else {
       return Colors.red;
     }
@@ -733,9 +737,9 @@ class _GatheringScreenState extends State<GatheringScreen> {
   //Function to get color depending on the lux
   Color getLightColor(double lux) {
     if (lux < minlux) {
-      return Colors.blue;
-    } else if (lux > minlux && lux < maxlux) {
       return Colors.orange;
+    } else if (lux > minlux && lux < maxlux) {
+      return Colors.blue;
     } else {
       return Colors.red;
     }
@@ -774,9 +778,9 @@ class _GatheringScreenState extends State<GatheringScreen> {
   //Function to get color depending on the moisture
   Color getMstColor(double moisture) {
     if (moisture < minmst) {
-      return Colors.blue;
-    } else if (moisture > minmst && moisture < maxmst) {
       return Colors.orange;
+    } else if (moisture > minmst && moisture < maxmst) {
+      return Colors.blue;
     } else {
       return Colors.red;
     }

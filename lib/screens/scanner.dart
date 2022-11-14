@@ -74,17 +74,16 @@ class _ScanQRPageState extends State {
   bool _isLoading = false;
   bool hasInternet = false;
   final GlobalKey qrKey = GlobalKey();
-  late QRViewController controller;
+  QRViewController? controller;
   Barcode? result;
 //in order to get hot reload to work.
   @override
-  void reassemble() async {
+  void reassemble() {
     super.reassemble();
-    if (Platform.isAndroid) {
-      // await kag asyc sa after reassemble
-      controller.resumeCamera();
+    if (controller != null && mounted) {
+      controller!.pauseCamera();
+      controller!.resumeCamera();
     }
-    controller.pauseCamera();
   }
 
   late final Stream<QuerySnapshot> plants =
@@ -149,7 +148,7 @@ class _ScanQRPageState extends State {
                                 color: Color.fromARGB(255, 199, 217, 137),
                               ),
                               onPressed: () async {
-                                await controller.resumeCamera();
+                                await controller!.resumeCamera();
                               }),
                           IconButton(
                               icon: const Icon(
@@ -157,7 +156,7 @@ class _ScanQRPageState extends State {
                                 color: Color.fromARGB(255, 199, 217, 137),
                               ),
                               onPressed: () async {
-                                await controller.toggleFlash();
+                                await controller!.toggleFlash();
                               })
                         ],
                       ),
@@ -321,7 +320,7 @@ class _ScanQRPageState extends State {
 
   @override
   void dispose() {
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 }

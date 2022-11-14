@@ -232,7 +232,7 @@ class _PlantInfoState extends State<PlantInfo> {
                                                 MainAxisAlignment.center,
                                             children: [
                                               Text(
-                                                'Current Height: ${data.docs[index]['Pot_Height']} inches',
+                                                'Height: ${data.docs[index]['Pot_Height']} cm',
                                                 style: const TextStyle(
                                                   fontFamily: 'AvenirLight',
                                                 ),
@@ -241,7 +241,7 @@ class _PlantInfoState extends State<PlantInfo> {
                                                 width: 10,
                                               ),
                                               Text(
-                                                'Current Age: ${data.docs[index]['Pot_TopDiameter']} months',
+                                                'Top Diameter: ${data.docs[index]['Pot_TopDiameter']} cm',
                                                 style: const TextStyle(
                                                   fontFamily: 'AvenirLight',
                                                 ),
@@ -251,7 +251,7 @@ class _PlantInfoState extends State<PlantInfo> {
                                           height: 10,
                                         ),
                                         Text(
-                                          'Current Number of Leaves: ${data.docs[index]['Pot_BaseDiameter']} leaves',
+                                          'Base Diameter: ${data.docs[index]['Pot_BaseDiameter']} cm',
                                           style: const TextStyle(
                                             fontFamily: 'AvenirLight',
                                           ),
@@ -311,10 +311,10 @@ class _PlantInfoState extends State<PlantInfo> {
                             const SizedBox(
                               height: 40,
                             ),
-                            (tempRecord == 0 &&
+                            tempRecord == 0 &&
                                     luxRecord == 0 &&
                                     mstRecord == 0 &&
-                                    humRecord == 0)
+                                    humRecord == 0
                                 ? Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: const [
@@ -322,7 +322,7 @@ class _PlantInfoState extends State<PlantInfo> {
                                           LineIcons.seedling,
                                           color: Color.fromARGB(
                                               255, 137, 217, 137),
-                                          size: 150,
+                                          size: 120,
                                         ),
                                         Text("No Data",
                                             style: TextStyle(
@@ -339,141 +339,154 @@ class _PlantInfoState extends State<PlantInfo> {
                                                   255, 137, 217, 137),
                                             )),
                                       ])
-                                : Center(
-                                    child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
+                                : Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
                                         const Text("Last Data Gathered",
                                             style: TextStyle(
                                               fontWeight: FontWeight.w800,
                                               fontSize: 30,
                                               color: Colors.black,
                                             )),
-                                        Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              Expanded(
-                                                  child: AnimatedOpacity(
-                                                opacity: widget1Opacity,
-                                                duration: const Duration(
-                                                    milliseconds: 300),
-                                                child: Column(
-                                                  children: [
-                                                    const Icon(
-                                                      Icons.thermostat_outlined,
-                                                      color: Colors.black,
-                                                      size: 50,
-                                                    ),
-                                                    const Text(
-                                                      'Temperature',
-                                                      style: TextStyle(
-                                                        fontSize: 15,
+                                        Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              10, 15, 10, 0),
+                                          child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Expanded(
+                                                    child: AnimatedOpacity(
+                                                  opacity: widget1Opacity,
+                                                  duration: const Duration(
+                                                      milliseconds: 300),
+                                                  child: Column(
+                                                    children: [
+                                                      const Icon(
+                                                        Icons
+                                                            .thermostat_outlined,
+                                                        color: Colors.black,
+                                                        size: 50,
                                                       ),
-                                                    ),
-                                                    const SizedBox(height: 10),
-                                                    Text(
-                                                      '$tempRecord °C',
-                                                      style: const TextStyle(
-                                                        fontSize: 20,
+                                                      const Text(
+                                                        'Temperature',
+                                                        style: TextStyle(
+                                                          fontSize: 15,
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              )),
-                                              Expanded(
-                                                  child: AnimatedOpacity(
-                                                      opacity: widget2Opacity,
-                                                      duration: const Duration(
-                                                          milliseconds: 300),
-                                                      child: Column(
-                                                        children: [
-                                                          const Icon(
-                                                            Icons
-                                                                .water_outlined,
-                                                            color: Colors.black,
-                                                            size: 50,
-                                                          ),
-                                                          const Text(
-                                                            'Humidity',
-                                                            style: TextStyle(
-                                                              fontSize: 15,
+                                                      const SizedBox(
+                                                          height: 10),
+                                                      Text(
+                                                        '$tempRecord °C',
+                                                        style: const TextStyle(
+                                                          fontSize: 20,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )),
+                                                Expanded(
+                                                    child: AnimatedOpacity(
+                                                        opacity: widget2Opacity,
+                                                        duration:
+                                                            const Duration(
+                                                                milliseconds:
+                                                                    300),
+                                                        child: Column(
+                                                          children: [
+                                                            const Icon(
+                                                              Icons
+                                                                  .water_outlined,
+                                                              color:
+                                                                  Colors.black,
+                                                              size: 50,
                                                             ),
-                                                          ),
-                                                          const SizedBox(
-                                                              height: 10),
-                                                          Text(
-                                                            '$humRecord %',
-                                                            style:
-                                                                const TextStyle(
-                                                              fontSize: 20,
+                                                            const Text(
+                                                              'Humidity',
+                                                              style: TextStyle(
+                                                                fontSize: 15,
+                                                              ),
                                                             ),
-                                                          ),
-                                                        ],
-                                                      ))),
-                                              Expanded(
-                                                  child: AnimatedOpacity(
-                                                      opacity: widget3Opacity,
-                                                      duration: const Duration(
-                                                          milliseconds: 300),
-                                                      child: Column(
-                                                        children: [
-                                                          const Icon(
-                                                            Icons
-                                                                .water_drop_outlined,
-                                                            color: Colors.black,
-                                                            size: 50,
-                                                          ),
-                                                          const Text(
-                                                            'Soil Moisture',
-                                                            style: TextStyle(
-                                                              fontSize: 15,
+                                                            const SizedBox(
+                                                                height: 10),
+                                                            Text(
+                                                              '$humRecord %',
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontSize: 20,
+                                                              ),
                                                             ),
-                                                          ),
-                                                          const SizedBox(
-                                                              height: 10),
-                                                          Text(
-                                                            '$mstRecord %',
-                                                            style:
-                                                                const TextStyle(
-                                                              fontSize: 20,
+                                                          ],
+                                                        ))),
+                                                Expanded(
+                                                    child: AnimatedOpacity(
+                                                        opacity: widget3Opacity,
+                                                        duration:
+                                                            const Duration(
+                                                                milliseconds:
+                                                                    300),
+                                                        child: Column(
+                                                          children: [
+                                                            const Icon(
+                                                              Icons
+                                                                  .water_drop_outlined,
+                                                              color:
+                                                                  Colors.black,
+                                                              size: 50,
                                                             ),
-                                                          ),
-                                                        ],
-                                                      ))),
-                                              Expanded(
-                                                  child: AnimatedOpacity(
-                                                      opacity: widget4Opacity,
-                                                      duration: const Duration(
-                                                          milliseconds: 300),
-                                                      child: Column(
-                                                        children: [
-                                                          const Icon(
-                                                            Icons
-                                                                .lightbulb_outline,
-                                                            color: Colors.black,
-                                                            size: 50,
-                                                          ),
-                                                          const Text(
-                                                            'Lux',
-                                                            style: TextStyle(
-                                                              fontSize: 15,
+                                                            const Text(
+                                                              'Soil Moisture',
+                                                              style: TextStyle(
+                                                                fontSize: 15,
+                                                              ),
                                                             ),
-                                                          ),
-                                                          const SizedBox(
-                                                              height: 10),
-                                                          Text(
-                                                            '$luxRecord lx',
-                                                            style:
-                                                                const TextStyle(
-                                                              fontSize: 20,
+                                                            const SizedBox(
+                                                                height: 10),
+                                                            Text(
+                                                              '$mstRecord %',
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontSize: 20,
+                                                              ),
                                                             ),
-                                                          ),
-                                                        ],
-                                                      ))),
-                                            ]),
-                                      ])),
+                                                          ],
+                                                        ))),
+                                                Expanded(
+                                                    child: AnimatedOpacity(
+                                                        opacity: widget4Opacity,
+                                                        duration:
+                                                            const Duration(
+                                                                milliseconds:
+                                                                    300),
+                                                        child: Column(
+                                                          children: [
+                                                            const Icon(
+                                                              Icons
+                                                                  .lightbulb_outline,
+                                                              color:
+                                                                  Colors.black,
+                                                              size: 50,
+                                                            ),
+                                                            const Text(
+                                                              'Lux',
+                                                              style: TextStyle(
+                                                                fontSize: 15,
+                                                              ),
+                                                            ),
+                                                            const SizedBox(
+                                                                height: 10),
+                                                            Text(
+                                                              '$luxRecord lx',
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontSize: 20,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ))),
+                                              ]),
+                                        ),
+                                      ]),
                             const SizedBox(
                               height: 40,
                             ),
