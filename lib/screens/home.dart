@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:plant_care_system/bluetooth/main_page.dart';
 import 'package:plant_care_system/screens/scanner.dart';
 import 'register.dart';
 import 'package:line_icons/line_icons.dart';
@@ -189,13 +188,7 @@ class MyHomePage extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(30)),
                             padding: const EdgeInsets.symmetric(
                                 vertical: 20, horizontal: 90)),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const MainPage()),
-                          );
-                        },
+                        onPressed: () {},
                       ),
                     ]),
               ),
