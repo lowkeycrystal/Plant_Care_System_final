@@ -2,12 +2,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const SuppPlant());
 }
 
-class MyApp extends StatelessWidget {
+class SuppPlant extends StatelessWidget {
   // ignore: use_key_in_widget_constructors
-  const MyApp();
+  const SuppPlant();
 
   @override
   Widget build(BuildContext context) {
