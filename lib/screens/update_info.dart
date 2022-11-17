@@ -316,11 +316,6 @@ class UpdateInfoState extends State<UpdateInfo> {
                                         });
                                         selectedPotType = pot!;
                                         potType = pot;
-                                        controllerTop.clear();
-                                        controllerBase.clear();
-                                        controllerHeight.clear();
-                                        controllerLength.clear();
-                                        controllerWidth.clear();
                                       },
                                     ),
                                   ),
@@ -336,9 +331,8 @@ class UpdateInfoState extends State<UpdateInfo> {
                                               32, 8, 8, 8),
                                           child: TextFormField(
                                             controller: controllerTop,
-                                            enabled: selectedPotType ==
-                                                        "Round" ||
-                                                    selectedPotType == "Conical"
+                                            enabled: potType == "Round" ||
+                                                    potType == "Conical"
                                                 ? true
                                                 : false,
                                             keyboardType: TextInputType.number,
@@ -350,9 +344,8 @@ class UpdateInfoState extends State<UpdateInfo> {
                                             validator: (value) {
                                               if (value == null ||
                                                   value.isEmpty &&
-                                                      (selectedPotType ==
-                                                              "Round" ||
-                                                          selectedPotType ==
+                                                      (potType == "Round" ||
+                                                          potType ==
                                                               "Conical")) {
                                                 return 'This field cannot be empty.';
                                               }
@@ -369,16 +362,21 @@ class UpdateInfoState extends State<UpdateInfo> {
                                                 fontSize: 17,
                                                 fontFamily: 'AvenirLight'),
                                             onChanged: (value) {
-                                              if (selectedPotType == "Round" ||
-                                                  selectedPotType ==
-                                                      "Conical") {
-                                                controllerTop = int.parse(value)
-                                                    as TextEditingController;
+                                              if (potType == "Round" ||
+                                                  potType == "Conical") {
+                                                if (value == '0') {
+                                                  potTopDiameter =
+                                                      controllerWidth as int;
+                                                } else {
+                                                  potTopDiameter =
+                                                      int.parse(value);
+                                                }
                                               } else {
-                                                controllerTop.clear();
+                                                setState(() {
+                                                  potTopDiameter = 0;
+                                                });
+                                                potTopDiameter = 0;
                                               }
-                                              // _controllerTop = value
-                                              //     as TextEditingController;
                                             },
                                           ),
                                         ),
@@ -389,10 +387,9 @@ class UpdateInfoState extends State<UpdateInfo> {
                                               8, 8, 8, 8),
                                           child: TextFormField(
                                             controller: controllerBase,
-                                            enabled:
-                                                selectedPotType == "Conical"
-                                                    ? true
-                                                    : false,
+                                            enabled: potType == "Conical"
+                                                ? true
+                                                : false,
                                             keyboardType: TextInputType.number,
                                             inputFormatters: <
                                                 TextInputFormatter>[
@@ -402,8 +399,7 @@ class UpdateInfoState extends State<UpdateInfo> {
                                             validator: (value) {
                                               if (value == null ||
                                                   value.isEmpty &&
-                                                      selectedPotType ==
-                                                          "Conical") {
+                                                      potType == "Conical") {
                                                 return 'This field cannot be empty.';
                                               }
                                               return null;
@@ -419,14 +415,21 @@ class UpdateInfoState extends State<UpdateInfo> {
                                                 fontSize: 17,
                                                 fontFamily: 'AvenirLight'),
                                             onChanged: (value) {
-                                              if (selectedPotType ==
-                                                  "Conical") {
-                                                controllerBase = int.parse(
-                                                        value)
-                                                    as TextEditingController;
+                                              if (potType == "Conical") {
+                                                if (value == '') {
+                                                  potBaseDiameter =
+                                                      controllerWidth as int;
+                                                } else {
+                                                  potBaseDiameter =
+                                                      int.parse(value);
+                                                }
                                               } else {
-                                                controllerBase.clear();
+                                                setState(() {
+                                                  potBaseDiameter = 0;
+                                                });
+                                                potBaseDiameter = 0;
                                               }
+
                                               // _controllerBase = value
                                               //     as TextEditingController;
                                             },
@@ -439,14 +442,11 @@ class UpdateInfoState extends State<UpdateInfo> {
                                               8, 8, 32, 8),
                                           child: TextFormField(
                                             controller: controllerHeight,
-                                            enabled:
-                                                selectedPotType == "Round" ||
-                                                        selectedPotType ==
-                                                            "Conical" ||
-                                                        selectedPotType ==
-                                                            "Box/Rectangle"
-                                                    ? true
-                                                    : false,
+                                            enabled: potType == "Round" ||
+                                                    potType == "Conical" ||
+                                                    potType == "Box/Rectangle"
+                                                ? true
+                                                : false,
                                             keyboardType: TextInputType.number,
                                             inputFormatters: <
                                                 TextInputFormatter>[
@@ -456,11 +456,10 @@ class UpdateInfoState extends State<UpdateInfo> {
                                             validator: (value) {
                                               if (value == null ||
                                                   value.isEmpty &&
-                                                      (selectedPotType ==
-                                                              "Round" ||
-                                                          selectedPotType ==
+                                                      (potType == "Round" ||
+                                                          potType ==
                                                               "Conical" ||
-                                                          selectedPotType ==
+                                                          potType ==
                                                               "Box/Rectangle")) {
                                                 return 'This field cannot be empty.';
                                               }
@@ -476,16 +475,20 @@ class UpdateInfoState extends State<UpdateInfo> {
                                                 fontSize: 17,
                                                 fontFamily: 'AvenirLight'),
                                             onChanged: (value) {
-                                              if (selectedPotType == "Round" ||
-                                                  selectedPotType ==
-                                                      "Conical" ||
-                                                  selectedPotType ==
-                                                      "Box/Rectangle") {
-                                                controllerHeight = int.parse(
-                                                        value)
-                                                    as TextEditingController;
+                                              if (potType == "Round" ||
+                                                  potType == "Conical" ||
+                                                  potType == "Box/Rectangle") {
+                                                if (value == '') {
+                                                  potHeight =
+                                                      controllerWidth as int;
+                                                } else {
+                                                  potHeight = int.parse(value);
+                                                }
                                               } else {
-                                                controllerHeight.clear();
+                                                setState(() {
+                                                  potHeight = 0;
+                                                });
+                                                potHeight = 0;
                                               }
                                               // _controllerHeight = value
                                               //     as TextEditingController;
@@ -505,8 +508,7 @@ class UpdateInfoState extends State<UpdateInfo> {
                                               32, 8, 8, 8),
                                           child: TextFormField(
                                             controller: controllerLength,
-                                            enabled: selectedPotType ==
-                                                    "Box/Rectangle"
+                                            enabled: potType == "Box/Rectangle"
                                                 ? true
                                                 : false,
                                             keyboardType: TextInputType.number,
@@ -518,7 +520,7 @@ class UpdateInfoState extends State<UpdateInfo> {
                                             validator: (value) {
                                               if (value == null ||
                                                   value.isEmpty &&
-                                                      selectedPotType ==
+                                                      potType ==
                                                           "Box/Rectangle") {
                                                 return 'This field cannot be empty.';
                                               }
@@ -526,7 +528,7 @@ class UpdateInfoState extends State<UpdateInfo> {
                                             },
                                             decoration:
                                                 textInputDecoration.copyWith(
-                                              labelText: 'Length',
+                                              labelText: 'Pot Length',
                                               hintText: 'Enter pot length',
                                             ),
                                             style: const TextStyle(
@@ -534,13 +536,18 @@ class UpdateInfoState extends State<UpdateInfo> {
                                                 fontSize: 17,
                                                 fontFamily: 'AvenirLight'),
                                             onChanged: (value) {
-                                              if (selectedPotType ==
-                                                  "Box/Rectangle") {
-                                                controllerLength = int.parse(
-                                                        value)
-                                                    as TextEditingController;
+                                              if (potType == "Box/Rectangle") {
+                                                if (value == '') {
+                                                  potLength =
+                                                      controllerWidth as int;
+                                                } else {
+                                                  potLength = int.parse(value);
+                                                }
                                               } else {
-                                                controllerLength.clear();
+                                                setState(() {
+                                                  potLength = 0;
+                                                });
+                                                potLength = 0;
                                               }
                                               // _controllerLength = value
                                               //     as TextEditingController;
@@ -556,8 +563,7 @@ class UpdateInfoState extends State<UpdateInfo> {
                                               8, 8, 32, 8),
                                           child: TextFormField(
                                             controller: controllerWidth,
-                                            enabled: selectedPotType ==
-                                                    "Box/Rectangle"
+                                            enabled: potType == "Box/Rectangle"
                                                 ? true
                                                 : false,
                                             keyboardType: TextInputType.number,
@@ -569,7 +575,7 @@ class UpdateInfoState extends State<UpdateInfo> {
                                             validator: (value) {
                                               if (value == null ||
                                                   value.isEmpty &&
-                                                      selectedPotType ==
+                                                      potType ==
                                                           "Box/Rectangle") {
                                                 return 'This field cannot be empty.';
                                               }
@@ -585,13 +591,18 @@ class UpdateInfoState extends State<UpdateInfo> {
                                                 fontSize: 17,
                                                 fontFamily: 'AvenirLight'),
                                             onChanged: (value) {
-                                              if (selectedPotType ==
-                                                  "Box/Rectangle") {
-                                                controllerWidth = int.parse(
-                                                        value)
-                                                    as TextEditingController;
+                                              if (potType == "Box/Rectangle") {
+                                                if (value == '0') {
+                                                  potWidth =
+                                                      controllerWidth as int;
+                                                } else {
+                                                  potWidth = int.parse(value);
+                                                }
                                               } else {
-                                                controllerWidth.clear();
+                                                setState(() {
+                                                  potWidth = 0;
+                                                });
+                                                potWidth = 0;
                                               }
                                               // _controllerWidth = value
                                               //     as TextEditingController;
@@ -618,7 +629,12 @@ class UpdateInfoState extends State<UpdateInfo> {
                                         fontSize: 17,
                                         fontFamily: 'AvenirLight'),
                                     onChanged: (value) {
-                                      shortDesc = value;
+                                      if (value == '') {
+                                        shortDesc =
+                                            controllerShortDesc as String;
+                                      } else {
+                                        shortDesc = value;
+                                      }
                                       // shortDesc =
                                       //     _controllerShortDesc as String;
                                     },
@@ -649,42 +665,36 @@ class UpdateInfoState extends State<UpdateInfo> {
                                               if (_formKey.currentState!
                                                   .validate()) {
                                                 // add to database
-                                                final plantUpdate =
-                                                    await FirebaseFirestore
-                                                        .instance
-                                                        .collection('PLANTS')
-                                                        .where('Plant_Id',
-                                                            isEqualTo:
-                                                                widget.qrResult)
-                                                        .limit(1)
-                                                        .get()
-                                                        .then((QuerySnapshot
-                                                            snapshot) {
-                                                  //Here we get the document reference and return to the post variable.
-                                                  return snapshot
-                                                      .docs[0].reference;
-                                                });
-
-                                                var batch = FirebaseFirestore
-                                                    .instance
-                                                    .batch();
-                                                //Updates the field value, using post as document reference
-                                                batch.update(plantUpdate, {
-                                                  'Pot_Type': potType,
-                                                  'Pot_Height':
-                                                      controllerHeight,
-                                                  'Pot_Length':
-                                                      controllerLength,
-                                                  'Pot_Width': controllerWidth,
-                                                  'Pot_BaseDiameter':
-                                                      controllerBase,
-                                                  'Pot_TopDiameter':
-                                                      controllerTop,
-                                                  'Short_Desc': shortDesc
-                                                });
-                                                batch.commit();
+                                                await FirebaseFirestore.instance
+                                                    .collection("PLANTS")
+                                                    .where('Plant_Id',
+                                                        isEqualTo:
+                                                            widget.qrResult)
+                                                    .get()
+                                                    .then(
+                                                        (val) =>
+                                                            val.docs
+                                                                .forEach(
+                                                                    (doc) => {
+                                                                          doc.reference
+                                                                              .set({
+                                                                            'Pot_Type':
+                                                                                potType,
+                                                                            'Pot_Height':
+                                                                                potHeight,
+                                                                            'Pot_Length':
+                                                                                potLength,
+                                                                            'Pot_Width':
+                                                                                potWidth,
+                                                                            'Pot_BaseDiameter':
+                                                                                potBaseDiameter,
+                                                                            'Pot_TopDiameter':
+                                                                                potTopDiameter,
+                                                                            'Short_Desc':
+                                                                                shortDesc
+                                                                          }, SetOptions(merge: true)).then((value) {})
+                                                                        }));
                                               }
-                                             
 
                                               // loading
 
