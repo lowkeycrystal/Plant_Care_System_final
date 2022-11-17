@@ -55,12 +55,9 @@ class _GatheringScreenState extends State<GatheringScreen> {
   double maxmst = 0.00;
   double minlux = 0.00;
   double maxlux = 0.00;
-  String locationinfo =
-      'Increase Temperature. The plant grows best in a warmer location. You need atleast for your plant to grow at best condition';
-  String illuminationinfo =
-      'ncrease Temperature. The plant grows best in a warmer location. You need atleast for your plant to grow at best condition';
-  String waterlevelinfo =
-      'ncrease Temperature. The plant grows best in a warmer location. You need atleast for your plant to grow at best condition';
+  String locationinfo = '';
+  String illuminationinfo = '';
+  String waterlevelinfo = '';
 
 //for luminance
   double neededlux = 0.00;
@@ -89,15 +86,27 @@ class _GatheringScreenState extends State<GatheringScreen> {
 
     Future.delayed(const Duration(milliseconds: 100), () {
       widget1Opacity = 1;
+      setState(() {
+        widget1Opacity = 1;
+      });
     });
     Future.delayed(const Duration(milliseconds: 300), () {
       widget2Opacity = 1;
+      setState(() {
+        widget2Opacity = 1;
+      });
     });
     Future.delayed(const Duration(milliseconds: 500), () {
       widget3Opacity = 1;
+      setState(() {
+        widget3Opacity = 1;
+      });
     });
     Future.delayed(const Duration(milliseconds: 700), () {
       widget4Opacity = 1;
+      setState(() {
+        widget4Opacity = 1;
+      });
     });
   }
 
@@ -169,7 +178,10 @@ class _GatheringScreenState extends State<GatheringScreen> {
                         neededlux = minlux - lux;
                         moretemp = mintemp - temperature;
                         lesstemp = temperature - maxtemp;
-                        //for luminance
+                        locationinfo = '${data.docs[index]['TEMPREC']}'
+                            '\n'
+                            '${data.docs[index]['HUMREC']}';
+                        illuminationinfo = '${data.docs[index]['LIGHTREC']}';
 
                         return Center(
                           child: Column(children: [
@@ -295,6 +307,15 @@ class _GatheringScreenState extends State<GatheringScreen> {
                             ),
 
 ////////////// recommendation boxes starts here ////////////////////////////////////////////////
+                            ///
+                            const SizedBox(
+                              child: Text(
+                                'Recommendations:',
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.black),
+                              ),
+                            ),
+
                             ///
                             Column(
                               children: [

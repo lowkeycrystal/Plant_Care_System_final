@@ -22,9 +22,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: appTitle,
-      debugShowCheckedModeBanner: false,
-      home: MyHomePage(title: appTitle),
-    );
+        title: appTitle,
+        debugShowCheckedModeBanner: false,
+        home: MyHomePage(title: appTitle),
+        theme: ThemeData(
+            appBarTheme: const AppBarTheme(
+          color: Color.fromARGB(255, 18, 64, 38),
+        )));
   }
 }

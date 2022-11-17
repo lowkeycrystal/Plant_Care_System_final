@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:plant_care_system/screens/About.dart';
+import 'package:plant_care_system/screens/How_it_works.dart';
+import 'package:plant_care_system/screens/Supported_Plants.dart';
 import 'package:plant_care_system/screens/scanner.dart';
 import 'register.dart';
 import 'package:line_icons/line_icons.dart';
@@ -63,7 +66,15 @@ class MyHomePage extends StatelessWidget {
                         title: const Text('Home',
                             style: TextStyle(
                                 color: Color.fromARGB(255, 199, 217, 137))),
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const MyHomePage(
+                                      title: '',
+                                    )),
+                          );
+                        },
                       ),
                       ListTile(
                         leading: const Icon(LineIcons.seedling,
@@ -71,7 +82,13 @@ class MyHomePage extends StatelessWidget {
                         title: const Text('Supported Plants',
                             style: TextStyle(
                                 color: Color.fromARGB(255, 199, 217, 137))),
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const SuppPlant()),
+                          );
+                        },
                       ),
                       ListTile(
                         leading: const Icon(LineIcons.tools,
@@ -79,7 +96,13 @@ class MyHomePage extends StatelessWidget {
                         title: const Text('How It Works',
                             style: TextStyle(
                                 color: Color.fromARGB(255, 199, 217, 137))),
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HowItWorks()),
+                          );
+                        },
                       ),
                       ListTile(
                         leading: const Icon(LineIcons.infoCircle,
@@ -87,7 +110,13 @@ class MyHomePage extends StatelessWidget {
                         title: const Text('About',
                             style: TextStyle(
                                 color: Color.fromARGB(255, 199, 217, 137))),
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const About()),
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -109,7 +138,7 @@ class MyHomePage extends StatelessWidget {
                                   fit: BoxFit.fill),
                             ),
                           ),
-                          const SizedBox(height: 60),
+                          const SizedBox(height: 80),
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 onPrimary:
@@ -160,23 +189,6 @@ class MyHomePage extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 20),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                onPrimary:
-                                    const Color.fromARGB(255, 199, 217, 137),
-                                primary: const Color.fromARGB(255, 18, 64, 38),
-                                elevation: 20,
-                                minimumSize: const Size(200, 60),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30)),
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 20, horizontal: 90)),
-                            onPressed: () {},
-                            child: const Text(
-                              'Connect Bluetooth',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          ),
                         ]),
                   ),
                 ))));

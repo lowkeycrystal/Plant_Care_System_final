@@ -29,6 +29,16 @@ class DefaultFirebaseOptions {
           'DefaultFirebaseOptions have not been configured for macos - '
           'you can reconfigure this by running the FlutterFire CLI again.',
         );
+      case TargetPlatform.windows:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for windows - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
+      case TargetPlatform.linux:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for linux - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       default:
         throw UnsupportedError(
           'DefaultFirebaseOptions are not supported for this platform.',
@@ -56,11 +66,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCsldzsZX4w3JyB4Oys0jhvSaIUV87iwnE',
-    appId: '1:627115676913:ios:5938adf79a7fd6e05a0550',
+    appId: '1:627115676913:ios:e6053866fcfcdf835a0550',
     messagingSenderId: '627115676913',
     projectId: 'plantcareapp-56b51',
     storageBucket: 'plantcareapp-56b51.appspot.com',
-    iosClientId: '627115676913-sa96q6o8dle4tb4lqcu6o2hvn7067kls.apps.googleusercontent.com',
-    iosBundleId: 'com.example.appios',
+    iosClientId: '627115676913-q0kc811cjkarejsscbi84aqjiv393ra8.apps.googleusercontent.com',
+    iosBundleId: 'com.example.plantCareSystem',
   );
 }

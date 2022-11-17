@@ -144,7 +144,7 @@ class _ScanQRPageState extends State {
                         children: [
                           IconButton(
                               icon: const Icon(
-                                Icons.refresh,
+                                Icons.play_arrow,
                                 color: Color.fromARGB(255, 199, 217, 137),
                               ),
                               onPressed: () async {
@@ -282,7 +282,7 @@ class _ScanQRPageState extends State {
                               ),
                             ),
                             Text(
-                              'Click "refresh" icon if the screen returns blank',
+                              'Click "play" icon to open camera',
                               style: TextStyle(
                                 fontStyle: FontStyle.italic,
                                 fontWeight: FontWeight.normal,
