@@ -707,7 +707,7 @@ class UpdateInfoState extends State<UpdateInfo> {
                                                   : false);
                                               await Future.delayed(
                                                   const Duration(seconds: 2));
-
+                                              if (!mounted) return;
                                               hasInternet
                                                   ? (Navigator.of(context).push(
                                                       MaterialPageRoute(

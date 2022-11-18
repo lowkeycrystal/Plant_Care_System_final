@@ -17,7 +17,7 @@ class PlantInfo extends StatefulWidget {
   const PlantInfo({Key? key, required this.qrResult}) : super(key: key);
 
   @override
-  _PlantInfoState createState() {
+  State<PlantInfo> createState() {
     return _PlantInfoState();
   }
 }
@@ -467,7 +467,19 @@ class _PlantInfoState extends State<PlantInfo> {
                                           plantName:
                                               '${data.docs[index]['Plant_Name']}',
                                           plantSpecie:
-                                              '${data.docs[index]['Plant_Specie']}'),
+                                              '${data.docs[index]['Plant_Specie']}',
+                                          potType:
+                                              '${data.docs[index]['Pot_Type']}',
+                                          potHeight: double.parse(
+                                              '${data.docs[index]['Pot_Height']}'),
+                                          potWidth: double.parse(
+                                              '${data.docs[index]['Pot_Width']}'),
+                                          potBase: double.parse(
+                                              '${data.docs[index]['Pot_BaseDiameter']}'),
+                                          potTop: double.parse(
+                                              '${data.docs[index]['Pot_TopDiameter']}'),
+                                          potLength: double.parse(
+                                              '${data.docs[index]['Pot_Length']}')),
                                       settings: const RouteSettings(
                                           name: "/PlantProfile")));
                                 },

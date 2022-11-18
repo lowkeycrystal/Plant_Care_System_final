@@ -65,10 +65,10 @@ class ScanQRPage extends StatefulWidget {
   const ScanQRPage({Key? key}) : super(key: key);
 
   @override
-  _ScanQRPageState createState() => _ScanQRPageState();
+  State<ScanQRPage> createState() => _ScanQRPageState();
 }
 
-class _ScanQRPageState extends State {
+class _ScanQRPageState extends State<ScanQRPage> {
   String qrResult = '';
   bool _isLoading = false;
   bool hasInternet = false;
@@ -207,6 +207,7 @@ class _ScanQRPageState extends State {
                                         isEqualTo: '${result!.code}')
                                     .get();
                                 if (query.docs.isEmpty) {
+                                  if (!mounted) return;
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: const Text(
@@ -231,6 +232,7 @@ class _ScanQRPageState extends State {
                                     ),
                                   );
                                 } else {
+                                  if (!mounted) return;
                                   hasInternet
                                       ? Navigator.of(context).pushReplacement(
                                           MaterialPageRoute(
