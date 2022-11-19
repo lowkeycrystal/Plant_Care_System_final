@@ -1,4 +1,3 @@
-import 'dart:io';
 // ignore: unnecessary_import
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -184,9 +183,9 @@ class _ScanQRPageState extends State {
                             const SizedBox(height: 20),
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                onPrimary:
+                                foregroundColor:
                                     const Color.fromARGB(255, 18, 64, 38),
-                                primary:
+                                backgroundColor:
                                     const Color.fromARGB(255, 144, 191, 73),
                                 elevation: 20,
                                 minimumSize: const Size(300, 50),

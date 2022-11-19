@@ -264,10 +264,12 @@ class _PlantInfoState extends State<PlantInfo> {
                                           padding: const EdgeInsets.all(5),
                                           child: ElevatedButton(
                                             style: ElevatedButton.styleFrom(
-                                                onPrimary: const Color.fromARGB(
-                                                    255, 199, 217, 137),
-                                                primary: const Color.fromARGB(
-                                                    255, 18, 64, 38),
+                                                foregroundColor:
+                                                    const Color.fromARGB(
+                                                        255, 199, 217, 137),
+                                                backgroundColor:
+                                                    const Color.fromARGB(
+                                                        255, 18, 64, 38),
                                                 elevation: 0,
                                                 minimumSize: const Size(70, 20),
                                                 shape: RoundedRectangleBorder(
@@ -447,9 +449,9 @@ class _PlantInfoState extends State<PlantInfo> {
                               padding: const EdgeInsets.all(5),
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  onPrimary:
+                                  foregroundColor:
                                       const Color.fromARGB(255, 199, 217, 137),
-                                  primary:
+                                  backgroundColor:
                                       const Color.fromARGB(255, 18, 64, 38),
                                   elevation: 20,
                                   minimumSize: const Size(200, 60),

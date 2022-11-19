@@ -106,7 +106,7 @@ class MyCustomFormState extends State<MyCustomForm> {
 
   final _formKey = GlobalKey<FormState>();
 
-  List<String> pot = ['Box/Rectangle', 'Conical', 'Round'];
+  List<String> pot = ['Box/Rectangle', 'Truncated Cone', 'Round'];
 
   List<String> varieties = [
     'Alocasia',
@@ -397,7 +397,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                     child: TextFormField(
                       controller: topdia,
                       enabled: _selectedPotType == "Round" ||
-                              _selectedPotType == "Conical"
+                              _selectedPotType == "Truncated Cone"
                           ? true
                           : false,
                       keyboardType: TextInputType.number,
@@ -408,7 +408,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                         if (value == null ||
                             value.isEmpty &&
                                 (_selectedPotType == "Round" ||
-                                    _selectedPotType == "Conical")) {
+                                    _selectedPotType == "Truncated Cone")) {
                           return 'This field cannot be empty.';
                         }
                         return null;
@@ -423,7 +423,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                           fontFamily: 'AvenirLight'),
                       onChanged: (value) {
                         if (_selectedPotType == "Round" ||
-                            _selectedPotType == "Conical") {
+                            _selectedPotType == "Truncated Cone") {
                           potTopDiameter = int.parse(value);
                         } else {
                           setState(() {
@@ -440,14 +440,16 @@ class MyCustomFormState extends State<MyCustomForm> {
                     padding: const EdgeInsets.fromLTRB(8, 0, 8, 10),
                     child: TextFormField(
                       controller: basedia,
-                      enabled: _selectedPotType == "Conical" ? true : false,
+                      enabled:
+                          _selectedPotType == "Truncated Cone" ? true : false,
                       keyboardType: TextInputType.number,
                       inputFormatters: <TextInputFormatter>[
                         FilteringTextInputFormatter.digitsOnly
                       ],
                       validator: (value) {
                         if (value == null ||
-                            value.isEmpty && _selectedPotType == "Conical") {
+                            value.isEmpty &&
+                                _selectedPotType == "Truncated Cone") {
                           return 'This field cannot be empty.';
                         }
                         return null;
@@ -461,7 +463,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                           fontSize: 17,
                           fontFamily: 'AvenirLight'),
                       onChanged: (value) {
-                        if (_selectedPotType == "Conical") {
+                        if (_selectedPotType == "Truncated Cone") {
                           potBaseDiameter = int.parse(value);
                         } else {
                           setState(() {
@@ -480,7 +482,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                     child: TextFormField(
                       controller: height,
                       enabled: _selectedPotType == "Round" ||
-                              _selectedPotType == "Conical" ||
+                              _selectedPotType == "Truncated Cone" ||
                               _selectedPotType == "Box/Rectangle"
                           ? true
                           : false,
@@ -492,7 +494,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                         if (value == null ||
                             value.isEmpty &&
                                 (_selectedPotType == "Round" ||
-                                    _selectedPotType == "Conical" ||
+                                    _selectedPotType == "Truncated Cone" ||
                                     _selectedPotType == "Box/Rectangle")) {
                           return 'This field cannot be empty.';
                         }
@@ -508,7 +510,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                           fontFamily: 'AvenirLight'),
                       onChanged: (value) {
                         if (_selectedPotType == "Round" ||
-                            _selectedPotType == "Conical" ||
+                            _selectedPotType == "Truncated Cone" ||
                             _selectedPotType == "Box/Rectangle") {
                           potHeight = int.parse(value);
                         } else {
@@ -657,8 +659,9 @@ class MyCustomFormState extends State<MyCustomForm> {
                 child: Center(
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        onPrimary: const Color.fromARGB(255, 199, 217, 137),
-                        primary: const Color.fromARGB(255, 18, 64, 38),
+                        foregroundColor:
+                            const Color.fromARGB(255, 199, 217, 137),
+                        backgroundColor: const Color.fromARGB(255, 18, 64, 38),
                         elevation: 20,
                         minimumSize: const Size(410, 70),
                         shape: RoundedRectangleBorder(
@@ -862,8 +865,8 @@ class MyCustomFormState extends State<MyCustomForm> {
 //                     style: TextStyle(fontSize: 20),
 //                   ),
 //                   style: ElevatedButton.styleFrom(
-//                     onPrimary: const Color.fromARGB(255, 199, 217, 137),
-//                     primary: const Color.fromARGB(255, 18, 64, 38),
+//                     foregroundColor: const Color.fromARGB(255, 199, 217, 137),
+//                     backgroundColor: const Color.fromARGB(255, 18, 64, 38),
 //                     elevation: 20,
 //                     minimumSize: const Size(300, 50),
 //                     shape: RoundedRectangleBorder(
@@ -909,8 +912,8 @@ class MyCustomFormState extends State<MyCustomForm> {
 //                     style: TextStyle(fontSize: 20),
 //                   ),
 //                   style: ElevatedButton.styleFrom(
-//                     onPrimary: const Color.fromARGB(255, 18, 64, 38),
-//                     primary: const Color.fromARGB(255, 144, 191, 73),
+//                     foregroundColor: const Color.fromARGB(255, 18, 64, 38),
+//                     backgroundColor: const Color.fromARGB(255, 144, 191, 73),
 //                     elevation: 20,
 //                     minimumSize: const Size(300, 50),
 //                     shape: RoundedRectangleBorder(
@@ -930,8 +933,8 @@ class MyCustomFormState extends State<MyCustomForm> {
 //                     style: TextStyle(fontSize: 20),
 //                   ),
 //                   style: ElevatedButton.styleFrom(
-//                     onPrimary: const Color.fromARGB(255, 18, 64, 38),
-//                     primary: const Color.fromARGB(255, 144, 191, 73),
+//                     foregroundColor: const Color.fromARGB(255, 18, 64, 38),
+//                     backgroundColor: const Color.fromARGB(255, 144, 191, 73),
 //                     elevation: 20,
 //                     minimumSize: const Size(300, 50),
 //                     shape: RoundedRectangleBorder(

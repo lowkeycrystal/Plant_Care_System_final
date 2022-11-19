@@ -564,9 +564,9 @@ class _GatheringScreenState extends State<GatheringScreen> {
                             ),
                             ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    onPrimary: const Color.fromARGB(
+                                    foregroundColor: const Color.fromARGB(
                                         255, 199, 217, 137),
-                                    primary:
+                                    backgroundColor:
                                         const Color.fromARGB(255, 18, 64, 38),
                                     elevation: 20,
                                     minimumSize: const Size(300, 60),
@@ -766,6 +766,16 @@ class _GatheringScreenState extends State<GatheringScreen> {
     }
   }
 
+  solveWaterNeed() {
+    if (moisture < minmst) {
+      return const Color.fromARGB(255, 231, 138, 138);
+    } else if (moisture > minmst && moisture < maxmst) {
+      return const Color.fromARGB(255, 119, 217, 137);
+    } else {
+      return const Color.fromARGB(255, 231, 138, 138);
+    }
+  }
+
   waterlevelContainer() {
     if (moisture < minmst) {
       return const Color.fromARGB(255, 231, 138, 138);
@@ -792,7 +802,7 @@ class _GatheringScreenState extends State<GatheringScreen> {
     } else if (moisture > minmst && moisture < maxmst) {
       return "Good. ${widget.plantSpecie} is having enough soil moisture";
     } else {
-      return "High. $moisture is more than the recommended soil moisture for ${widget.plantSpecie}";
+      return "Make sure you have placed the soil moisture in the pot.";
     }
   }
 

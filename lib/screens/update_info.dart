@@ -49,7 +49,7 @@ class UpdateInfoState extends State<UpdateInfo> {
 
   final _formKey = GlobalKey<FormState>();
 
-  List<String> pot = ['Box/Rectangle', 'Conical', 'Round'];
+  List<String> pot = ['Box/Rectangle', 'Truncated Cone', 'Round'];
 
   List<String> varieties = [
     'Alocasia',
@@ -332,7 +332,7 @@ class UpdateInfoState extends State<UpdateInfo> {
                                           child: TextFormField(
                                             controller: controllerTop,
                                             enabled: potType == "Round" ||
-                                                    potType == "Conical"
+                                                    potType == "Truncated Cone"
                                                 ? true
                                                 : false,
                                             keyboardType: TextInputType.number,
@@ -346,7 +346,7 @@ class UpdateInfoState extends State<UpdateInfo> {
                                                   value.isEmpty &&
                                                       (potType == "Round" ||
                                                           potType ==
-                                                              "Conical")) {
+                                                              "Truncated Cone")) {
                                                 return 'This field cannot be empty.';
                                               }
                                               return null;
@@ -363,7 +363,7 @@ class UpdateInfoState extends State<UpdateInfo> {
                                                 fontFamily: 'AvenirLight'),
                                             onChanged: (value) {
                                               if (potType == "Round" ||
-                                                  potType == "Conical") {
+                                                  potType == "Truncated Cone") {
                                                 if (value == '0') {
                                                   potTopDiameter =
                                                       controllerWidth as int;
@@ -387,7 +387,7 @@ class UpdateInfoState extends State<UpdateInfo> {
                                               8, 8, 8, 8),
                                           child: TextFormField(
                                             controller: controllerBase,
-                                            enabled: potType == "Conical"
+                                            enabled: potType == "Truncated Cone"
                                                 ? true
                                                 : false,
                                             keyboardType: TextInputType.number,
@@ -399,7 +399,8 @@ class UpdateInfoState extends State<UpdateInfo> {
                                             validator: (value) {
                                               if (value == null ||
                                                   value.isEmpty &&
-                                                      potType == "Conical") {
+                                                      potType ==
+                                                          "Truncated Cone") {
                                                 return 'This field cannot be empty.';
                                               }
                                               return null;
@@ -415,7 +416,7 @@ class UpdateInfoState extends State<UpdateInfo> {
                                                 fontSize: 17,
                                                 fontFamily: 'AvenirLight'),
                                             onChanged: (value) {
-                                              if (potType == "Conical") {
+                                              if (potType == "Truncated Cone") {
                                                 if (value == '') {
                                                   potBaseDiameter =
                                                       controllerWidth as int;
@@ -443,7 +444,8 @@ class UpdateInfoState extends State<UpdateInfo> {
                                           child: TextFormField(
                                             controller: controllerHeight,
                                             enabled: potType == "Round" ||
-                                                    potType == "Conical" ||
+                                                    potType ==
+                                                        "Truncated Cone" ||
                                                     potType == "Box/Rectangle"
                                                 ? true
                                                 : false,
@@ -458,7 +460,7 @@ class UpdateInfoState extends State<UpdateInfo> {
                                                   value.isEmpty &&
                                                       (potType == "Round" ||
                                                           potType ==
-                                                              "Conical" ||
+                                                              "Truncated Cone" ||
                                                           potType ==
                                                               "Box/Rectangle")) {
                                                 return 'This field cannot be empty.';
@@ -476,7 +478,7 @@ class UpdateInfoState extends State<UpdateInfo> {
                                                 fontFamily: 'AvenirLight'),
                                             onChanged: (value) {
                                               if (potType == "Round" ||
-                                                  potType == "Conical" ||
+                                                  potType == "Truncated Cone" ||
                                                   potType == "Box/Rectangle") {
                                                 if (value == '') {
                                                   potHeight =
@@ -646,10 +648,12 @@ class UpdateInfoState extends State<UpdateInfo> {
                                     child: Center(
                                         child: ElevatedButton(
                                             style: ElevatedButton.styleFrom(
-                                              onPrimary: const Color.fromARGB(
-                                                  255, 199, 217, 137),
-                                              primary: const Color.fromARGB(
-                                                  255, 18, 64, 38),
+                                              foregroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 199, 217, 137),
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 18, 64, 38),
                                               elevation: 20,
                                               minimumSize: const Size(410, 70),
                                               shape: RoundedRectangleBorder(

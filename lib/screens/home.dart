@@ -141,9 +141,10 @@ class MyHomePage extends StatelessWidget {
                           const SizedBox(height: 80),
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                onPrimary:
+                                foregroundColor:
                                     const Color.fromARGB(255, 199, 217, 137),
-                                primary: const Color.fromARGB(255, 18, 64, 38),
+                                backgroundColor:
+                                    const Color.fromARGB(255, 18, 64, 38),
                                 elevation: 20,
                                 minimumSize: const Size(300, 60),
                                 shape: RoundedRectangleBorder(
@@ -166,9 +167,10 @@ class MyHomePage extends StatelessWidget {
                           const SizedBox(height: 20),
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                onPrimary:
+                                foregroundColor:
                                     const Color.fromARGB(255, 199, 217, 137),
-                                primary: const Color.fromARGB(255, 18, 64, 38),
+                                backgroundColor:
+                                    const Color.fromARGB(255, 18, 64, 38),
                                 elevation: 20,
                                 minimumSize: const Size(250, 60),
                                 shape: RoundedRectangleBorder(
