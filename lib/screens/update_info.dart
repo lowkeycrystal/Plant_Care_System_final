@@ -146,7 +146,7 @@ class UpdateInfoState extends State<UpdateInfo> {
             ],
             backgroundColor: Colors.transparent,
             bottomOpacity: 0.0,
-            title: const Text('Update Plant Info',
+            title: const Text('Update Pot Info',
                 style: TextStyle(
                   color: Color.fromARGB(255, 18, 64, 38),
                   fontWeight: FontWeight.bold,

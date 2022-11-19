@@ -330,21 +330,15 @@ class _GatheringScreenState extends State<GatheringScreen> {
 ////////////// recommendation boxes starts here ////////////////////////////////////////////////
                             ///
                             const SizedBox(
+                              height: 10,
+                            ),
+                            const SizedBox(
                               child: Text(
                                 'Recommendations:',
                                 style: TextStyle(
                                     fontSize: 20, color: Colors.black),
                               ),
                             ),
-                            SizedBox(
-                              child: Text(
-                                "${solvePotVolume()} ml",
-                                style: const TextStyle(
-                                    fontSize: 20, color: Colors.black),
-                              ),
-                            ),
-
-                            ///
                             Column(
                               children: [
                                 Padding(
@@ -618,7 +612,9 @@ class _GatheringScreenState extends State<GatheringScreen> {
                                               'Temp_Record': temperature,
                                               'Light_Record': lux,
                                               'Moist_Record': moisture,
-                                              'Hum_Record': humidity
+                                              'Hum_Record': humidity,
+                                              'TimeStamp':
+                                                  FieldValue.serverTimestamp(),
                                             }, SetOptions(merge: true)).then(
                                                 (value) {})
                                           }));
@@ -652,6 +648,9 @@ class _GatheringScreenState extends State<GatheringScreen> {
                                         'Save and Close',
                                         style: TextStyle(fontSize: 20),
                                       )),
+                            const SizedBox(
+                              height: 20,
+                            ),
                           ]),
                         );
                       });
@@ -796,16 +795,19 @@ class _GatheringScreenState extends State<GatheringScreen> {
 
   solvePotVolume() {
     if (widget.potType == "Box/Rectangle") {
-      return widget.potHeight * widget.potLength * widget.potWidth;
+      return (widget.potHeight * widget.potLength * widget.potWidth) *
+          ((100 - moisture) / 100);
     } else if (widget.potType == "Truncated Cone") {
-      return (1 / 3) *
-          (3.14159 *
-              widget.potHeight *
-              (pow((widget.potTop / 2), 2) +
-                  (widget.potTop / 2) * (widget.potBase / 2) +
-                  pow((widget.potBase / 2), 2)));
+      return ((1 / 3) *
+              (3.14159 *
+                  widget.potHeight *
+                  (pow((widget.potTop / 2), 2) +
+                      (widget.potTop / 2) * (widget.potBase / 2) +
+                      pow((widget.potBase / 2), 2)))) *
+          ((100 - moisture) / 100);
     } else if (widget.potType == "Round") {
-      return 3.14159 * (pow((widget.potTop / 2), 2)) * widget.potHeight;
+      return (3.14159 * (pow((widget.potTop / 2), 2)) * widget.potHeight) *
+          ((100 - moisture) / 100);
     } else {
       return 0.00;
     }
@@ -833,7 +835,7 @@ class _GatheringScreenState extends State<GatheringScreen> {
 
   waterlevelresult(double moisture) {
     if (moisture < minmst) {
-      return "Low. You need to add atmost (insert amount of water here) for to reach $maxmst moisture which is the maximum recomended moisture for ${widget.plantSpecie}";
+      return "Low. You need to add atmost ${solvePotVolume()} ml  to reach $maxmst moisture which is the maximum recomended moisture for ${widget.plantSpecie}";
     } else if (moisture > minmst && moisture < maxmst) {
       return "Good. ${widget.plantSpecie} is having enough soil moisture";
     } else {

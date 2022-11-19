@@ -415,7 +415,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                       },
                       decoration: textInputDecoration.copyWith(
                         labelText: 'Top Diameter',
-                        hintText: 'Enter top diameter of the pot',
+                        hintText: 'unit: cm',
                       ),
                       style: const TextStyle(
                           color: Colors.black87,
@@ -456,7 +456,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                       },
                       decoration: textInputDecoration.copyWith(
                         labelText: 'Base Diameter',
-                        hintText: 'Enter bottom diameter of the pot',
+                        hintText: 'unit: cm',
                       ),
                       style: const TextStyle(
                           color: Colors.black87,
@@ -703,7 +703,8 @@ class MyCustomFormState extends State<MyCustomForm> {
                             'Temp_Record': temperature,
                             'Light_Record': lux,
                             'Moist_Record': moisture,
-                            'Hum_Record': humidity
+                            'Hum_Record': humidity,
+                            'TimeStamp': FieldValue.serverTimestamp(),
                           });
                           // .then((value) => print('User is added'))
                           // .catchError((error) =>
