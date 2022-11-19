@@ -89,11 +89,11 @@ class MyCustomFormState extends State<MyCustomForm> {
   var plantName = '';
   var plantVariety = '';
   var plantSpecie = '';
-  var potHeight = 0;
-  var potLength = 0;
-  var potWidth = 0;
-  var potTopDiameter = 0;
-  var potBaseDiameter = 0;
+  var potHeight = 0.00;
+  var potLength = 0.00;
+  var potWidth = 0.00;
+  var potTopDiameter = 0.00;
+  var potBaseDiameter = 0.00;
   var potType = '';
   var shortDesc = '';
   var plantId = '';
@@ -415,7 +415,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                       },
                       decoration: textInputDecoration.copyWith(
                         labelText: 'Top Diameter',
-                        hintText: 'Enter top diameter of the pot',
+                        hintText: 'unit: cm',
                       ),
                       style: const TextStyle(
                           color: Colors.black87,
@@ -424,7 +424,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                       onChanged: (value) {
                         if (_selectedPotType == "Round" ||
                             _selectedPotType == "Truncated Cone") {
-                          potTopDiameter = int.parse(value);
+                          potTopDiameter = double.parse(value);
                         } else {
                           setState(() {
                             potTopDiameter = 0;
@@ -456,7 +456,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                       },
                       decoration: textInputDecoration.copyWith(
                         labelText: 'Base Diameter',
-                        hintText: 'Enter bottom diameter of the pot',
+                        hintText: 'unit: cm',
                       ),
                       style: const TextStyle(
                           color: Colors.black87,
@@ -464,7 +464,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                           fontFamily: 'AvenirLight'),
                       onChanged: (value) {
                         if (_selectedPotType == "Truncated Cone") {
-                          potBaseDiameter = int.parse(value);
+                          potBaseDiameter = double.parse(value);
                         } else {
                           setState(() {
                             potBaseDiameter = 0;
@@ -512,7 +512,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                         if (_selectedPotType == "Round" ||
                             _selectedPotType == "Truncated Cone" ||
                             _selectedPotType == "Box/Rectangle") {
-                          potHeight = int.parse(value);
+                          potHeight = double.parse(value);
                         } else {
                           setState(() {
                             potHeight = 0;
@@ -555,7 +555,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                           fontFamily: 'AvenirLight'),
                       onChanged: (value) {
                         if (_selectedPotType == "Box/Rectangle") {
-                          potLength = int.parse(value);
+                          potLength = double.parse(value);
                         } else {
                           setState(() {
                             potLength = 0;
@@ -595,7 +595,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                           fontFamily: 'AvenirLight'),
                       onChanged: (value) {
                         if (_selectedPotType == "Box/Rectangle") {
-                          potWidth = int.parse(value);
+                          potWidth = double.parse(value);
                         } else {
                           setState(() {
                             potWidth = 0;
@@ -703,7 +703,8 @@ class MyCustomFormState extends State<MyCustomForm> {
                             'Temp_Record': temperature,
                             'Light_Record': lux,
                             'Moist_Record': moisture,
-                            'Hum_Record': humidity
+                            'Hum_Record': humidity,
+                            'TimeStamp': FieldValue.serverTimestamp(),
                           });
                           // .then((value) => print('User is added'))
                           // .catchError((error) =>
@@ -716,6 +717,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                           await Future.delayed(const Duration(seconds: 2));
 
                           hasInternet ? _formKey.currentState?.reset() : null;
+                          if (!mounted) return;
                           hasInternet
                               ? (Navigator.of(context)
                                   .push(

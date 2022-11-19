@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -10,20 +11,32 @@ import 'package:plant_care_system/screens/plant_profile.dart';
 import '../widgets/snackbar_widget.dart';
 
 class GatheringScreen extends StatefulWidget {
-  const GatheringScreen({
-    Key? key,
-    required this.characteristics,
-    required this.device,
-    required this.qrResult,
-    required this.plantName,
-    required this.plantSpecie,
-  }) : super(key: key);
+  const GatheringScreen(
+      {Key? key,
+      required this.characteristics,
+      required this.device,
+      required this.qrResult,
+      required this.plantName,
+      required this.plantSpecie,
+      required this.potType,
+      required this.potWidth,
+      required this.potHeight,
+      required this.potLength,
+      required this.potBase,
+      required this.potTop})
+      : super(key: key);
 
   ///Retrieves all available bluetooth services
   final BluetoothCharacteristic characteristics;
   final String qrResult;
   final String plantName;
   final String plantSpecie;
+  final String potType;
+  final double potHeight;
+  final double potWidth;
+  final double potLength;
+  final double potBase;
+  final double potTop;
 
   ///Retrieves device info
   final BluetoothDevice device;
@@ -36,6 +49,12 @@ class _GatheringScreenState extends State<GatheringScreen> {
   late BluetoothCharacteristic _characteristics;
   late StreamSubscription<List<int>> bleReceive;
   late String qrResult = widget.qrResult;
+  late String potType = widget.potType;
+  late double potHeight = widget.potHeight;
+  late double potWidth = widget.potWidth;
+  late double potLength = widget.potLength;
+  late double potBase = widget.potBase;
+  late double potTop = widget.potTop;
 //for loading
   bool hasInternet = false;
   bool _isLoading = false;
@@ -82,6 +101,7 @@ class _GatheringScreenState extends State<GatheringScreen> {
     _characteristics = widget.characteristics;
     _listenBluetoothConnectionStatus();
     _receiveFromBT();
+
     qrResult = widget.qrResult;
 
     Future.delayed(const Duration(milliseconds: 100), () {
@@ -136,6 +156,7 @@ class _GatheringScreenState extends State<GatheringScreen> {
                 IconButton(
                   onPressed: () async {
                     await widget.device.disconnect();
+                    if (!mounted) return;
                     Navigator.pop(context);
                   },
                   icon: const Icon(Icons.close),
@@ -309,14 +330,15 @@ class _GatheringScreenState extends State<GatheringScreen> {
 ////////////// recommendation boxes starts here ////////////////////////////////////////////////
                             ///
                             const SizedBox(
+                              height: 10,
+                            ),
+                            const SizedBox(
                               child: Text(
                                 'Recommendations:',
                                 style: TextStyle(
                                     fontSize: 20, color: Colors.black),
                               ),
                             ),
-
-                            ///
                             Column(
                               children: [
                                 Padding(
@@ -590,7 +612,9 @@ class _GatheringScreenState extends State<GatheringScreen> {
                                               'Temp_Record': temperature,
                                               'Light_Record': lux,
                                               'Moist_Record': moisture,
-                                              'Hum_Record': humidity
+                                              'Hum_Record': humidity,
+                                              'TimeStamp':
+                                                  FieldValue.serverTimestamp(),
                                             }, SetOptions(merge: true)).then(
                                                 (value) {})
                                           }));
@@ -598,7 +622,7 @@ class _GatheringScreenState extends State<GatheringScreen> {
                                       hasInternet ? _isLoading = true : false);
                                   await Future.delayed(
                                       const Duration(seconds: 2));
-
+                                  if (!mounted) return;
                                   hasInternet
                                       ? Navigator.pushReplacement(
                                           context,
@@ -624,6 +648,9 @@ class _GatheringScreenState extends State<GatheringScreen> {
                                         'Save and Close',
                                         style: TextStyle(fontSize: 20),
                                       )),
+                            const SizedBox(
+                              height: 20,
+                            ),
                           ]),
                         );
                       });
@@ -766,13 +793,23 @@ class _GatheringScreenState extends State<GatheringScreen> {
     }
   }
 
-  solveWaterNeed() {
-    if (moisture < minmst) {
-      return const Color.fromARGB(255, 231, 138, 138);
-    } else if (moisture > minmst && moisture < maxmst) {
-      return const Color.fromARGB(255, 119, 217, 137);
+  solvePotVolume() {
+    if (widget.potType == "Box/Rectangle") {
+      return (widget.potHeight * widget.potLength * widget.potWidth) *
+          ((100 - moisture) / 100);
+    } else if (widget.potType == "Truncated Cone") {
+      return ((1 / 3) *
+              (3.14159 *
+                  widget.potHeight *
+                  (pow((widget.potTop / 2), 2) +
+                      (widget.potTop / 2) * (widget.potBase / 2) +
+                      pow((widget.potBase / 2), 2)))) *
+          ((100 - moisture) / 100);
+    } else if (widget.potType == "Round") {
+      return (3.14159 * (pow((widget.potTop / 2), 2)) * widget.potHeight) *
+          ((100 - moisture) / 100);
     } else {
-      return const Color.fromARGB(255, 231, 138, 138);
+      return 0.00;
     }
   }
 
@@ -798,7 +835,7 @@ class _GatheringScreenState extends State<GatheringScreen> {
 
   waterlevelresult(double moisture) {
     if (moisture < minmst) {
-      return "Low. You need to add atmost (insert amount of water here) for to reach $maxmst moisture which is the maximum recomended moisture for ${widget.plantSpecie}";
+      return "Low. You need to add atmost ${solvePotVolume()} ml  to reach $maxmst moisture which is the maximum recomended moisture for ${widget.plantSpecie}";
     } else if (moisture > minmst && moisture < maxmst) {
       return "Good. ${widget.plantSpecie} is having enough soil moisture";
     } else {
@@ -829,6 +866,7 @@ class _GatheringScreenState extends State<GatheringScreen> {
         timer = Timer.periodic(const Duration(seconds: 30), (_) async {
           await widget.device.connect();
           isReconnect = true;
+          if (!mounted) return;
           CustomSnackbar(
             context,
             status: Status.warning,

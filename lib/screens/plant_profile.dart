@@ -5,6 +5,7 @@ import 'package:plant_care_system/screens/update_info.dart';
 import 'dart:async';
 import 'package:line_icons/line_icons.dart';
 import 'package:flutter_close_app/flutter_close_app.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(const PlantInfo(
@@ -17,7 +18,7 @@ class PlantInfo extends StatefulWidget {
   const PlantInfo({Key? key, required this.qrResult}) : super(key: key);
 
   @override
-  _PlantInfoState createState() {
+  State<PlantInfo> createState() {
     return _PlantInfoState();
   }
 }
@@ -145,6 +146,10 @@ class _PlantInfoState extends State<PlantInfo> {
                             double.parse('${data.docs[index]['Moist_Record']}');
                         double luxRecord =
                             double.parse('${data.docs[index]['Light_Record']}');
+                        DateTime datetime = DateTime.parse((data.docs[index]
+                                ['TimeStamp'])
+                            .toDate()
+                            .toString());
 
                         return SingleChildScrollView(
                           child: Column(children: <Widget>[
@@ -212,6 +217,37 @@ class _PlantInfoState extends State<PlantInfo> {
                                         const SizedBox(
                                           height: 20,
                                         ),
+                                        Text(
+                                          'Pot Type: ${data.docs[index]['Pot_Type']} cm',
+                                          style: const TextStyle(
+                                            fontFamily: 'AvenirLight',
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'Base Diameter: ${data.docs[index]['Pot_BaseDiameter']} cm',
+                                                style: const TextStyle(
+                                                  fontFamily: 'AvenirLight',
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(
+                                                'Top Diameter: ${data.docs[index]['Pot_TopDiameter']} cm',
+                                                style: const TextStyle(
+                                                  fontFamily: 'AvenirLight',
+                                                ),
+                                              ),
+                                            ]),
                                         Row(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -228,27 +264,27 @@ class _PlantInfoState extends State<PlantInfo> {
                                                 width: 10,
                                               ),
                                               Text(
-                                                'Top Diameter: ${data.docs[index]['Pot_TopDiameter']} cm',
+                                                'Width: ${data.docs[index]['Pot_Width']} cm',
+                                                style: const TextStyle(
+                                                  fontFamily: 'AvenirLight',
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(
+                                                'Length: ${data.docs[index]['Pot_Length']} cm',
                                                 style: const TextStyle(
                                                   fontFamily: 'AvenirLight',
                                                 ),
                                               ),
                                             ]),
                                         const SizedBox(
-                                          height: 10,
-                                        ),
-                                        Text(
-                                          'Base Diameter: ${data.docs[index]['Pot_BaseDiameter']} cm',
-                                          style: const TextStyle(
-                                            fontFamily: 'AvenirLight',
-                                          ),
-                                        ),
-                                        const SizedBox(
                                           height: 15,
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.fromLTRB(
-                                              20, 0, 20, 20),
+                                              20, 0, 20, 10),
                                           child: Text(
                                             '"${data.docs[index]['Short_Desc']}"',
                                             textAlign: TextAlign.center,
@@ -258,7 +294,7 @@ class _PlantInfoState extends State<PlantInfo> {
                                           ),
                                         ),
                                         const SizedBox(
-                                          height: 10,
+                                          height: 5,
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.all(5),
@@ -290,7 +326,7 @@ class _PlantInfoState extends State<PlantInfo> {
                                               ));
                                             },
                                             child: const Text(
-                                              'Update',
+                                              'Update Pot',
                                               style: TextStyle(fontSize: 20),
                                             ),
                                           ),
@@ -335,6 +371,13 @@ class _PlantInfoState extends State<PlantInfo> {
                                             style: TextStyle(
                                               fontWeight: FontWeight.w800,
                                               fontSize: 30,
+                                              color: Colors.black,
+                                            )),
+                                        const SizedBox(height: 15),
+                                        Text('$datetime',
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w800,
+                                              fontSize: 15,
                                               color: Colors.black,
                                             )),
                                         Padding(
@@ -443,7 +486,7 @@ class _PlantInfoState extends State<PlantInfo> {
                                         ),
                                       ]),
                             const SizedBox(
-                              height: 40,
+                              height: 60,
                             ),
                             Padding(
                               padding: const EdgeInsets.all(5),
@@ -467,7 +510,19 @@ class _PlantInfoState extends State<PlantInfo> {
                                           plantName:
                                               '${data.docs[index]['Plant_Name']}',
                                           plantSpecie:
-                                              '${data.docs[index]['Plant_Specie']}'),
+                                              '${data.docs[index]['Plant_Specie']}',
+                                          potType:
+                                              '${data.docs[index]['Pot_Type']}',
+                                          potHeight: double.parse(
+                                              '${data.docs[index]['Pot_Height']}'),
+                                          potWidth: double.parse(
+                                              '${data.docs[index]['Pot_Width']}'),
+                                          potBase: double.parse(
+                                              '${data.docs[index]['Pot_BaseDiameter']}'),
+                                          potTop: double.parse(
+                                              '${data.docs[index]['Pot_TopDiameter']}'),
+                                          potLength: double.parse(
+                                              '${data.docs[index]['Pot_Length']}')),
                                       settings: const RouteSettings(
                                           name: "/PlantProfile")));
                                 },

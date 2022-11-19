@@ -14,6 +14,12 @@ void main() {
     qrResult: '',
     plantName: '',
     plantSpecie: '',
+    potType: '',
+    potWidth: 0.00,
+    potHeight: 0.00,
+    potLength: 0.00,
+    potBase: 0.00,
+    potTop: 0.00,
   ));
 }
 
@@ -21,21 +27,40 @@ class DevicesPage extends StatefulWidget {
   final String qrResult;
   final String plantName;
   final String plantSpecie;
+  final String potType;
+  final double potHeight;
+  final double potWidth;
+  final double potLength;
+  final double potBase;
+  final double potTop;
+
   const DevicesPage(
       {Key? key,
       required this.qrResult,
       required this.plantName,
-      required this.plantSpecie})
+      required this.plantSpecie,
+      required this.potType,
+      required this.potWidth,
+      required this.potHeight,
+      required this.potLength,
+      required this.potBase,
+      required this.potTop})
       : super(key: key);
 
   @override
-  _DevicesPageState createState() => _DevicesPageState();
+  State<DevicesPage> createState() => _DevicesPageState();
 }
 
 class _DevicesPageState extends State<DevicesPage> {
   late String qrResult = widget.qrResult;
   late String plantName = widget.plantName;
   late String plantSpecie = widget.plantSpecie;
+  late String potType = widget.potType;
+  late double potHeight = widget.potHeight;
+  late double potWidth = widget.potWidth;
+  late double potLength = widget.potLength;
+  late double potBase = widget.potBase;
+  late double potTop = widget.potTop;
 
   final String kServiceUUID = "0000ffe0-0000-1000-8000-00805f9b34fb";
   final String kCharacteristicUUID = "0000ffe1-0000-1000-8000-00805f9b34fb";
@@ -331,6 +356,7 @@ class _DevicesPageState extends State<DevicesPage> {
               setState(() {
                 isConnecting = false;
               });
+              // ignore: use_build_context_synchronously
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -340,12 +366,19 @@ class _DevicesPageState extends State<DevicesPage> {
                     qrResult: qrResult,
                     plantName: plantName,
                     plantSpecie: plantSpecie,
+                    potType: potType,
+                    potWidth: potWidth,
+                    potHeight: potHeight,
+                    potLength: potLength,
+                    potBase: potBase,
+                    potTop: potTop,
                   ),
                 ),
               );
             } else {
               if (isConnecting) {
                 device.disconnect();
+                // ignore: use_build_context_synchronously
                 CustomSnackbar(
                   context,
                   status: Status.error,
