@@ -1,5 +1,6 @@
-# plant_care_system
+# Mobile Application Monitoring System for Proper Care of Ornamental Plants with QR Code Integration
 
+## Mobile Application Monitoring System for Proper Care of Ornamental Plants with QR Code Integration
 A new Flutter project.
 
 ## Getting Started
