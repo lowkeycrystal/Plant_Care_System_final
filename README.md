@@ -2,14 +2,14 @@
 
 ## Abstract
 
-##Key Features
+## Key Features
 
 ## Built With
 
 
 ## Contributors
-### Amarillo, Angelo Joseph
-### Bacugan, Reniel Graye
-### Lomenario, Julius
-### Navigar, Amiel
-### Sumido, Arlai Zann
+#### Amarillo, Angelo Joseph
+#### Bacugan, Reniel Graye
+#### Lomenario, Julius
+#### Navigar, Amiel
+#### Sumido, Arlai Zann
